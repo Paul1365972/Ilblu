@@ -1,0 +1,18 @@
+<project>
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>io.github.paul1365972</groupId>
+    <artifactId>ilblu-parent</artifactId>
+    <version>dev-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>Ilblu (Parent)</name>
+
+    <build>
+        <defaultGoal>install</defaultGoal>
+        <finalName>${project.artifactId}</finalName>
+    </build>
+    <modules>
+        <module>Ilblu-API</module>
+        <module>Ilblu-Server</module>
+    </modules>
+</project>

@@ -1,0 +1,32 @@
+import org.apache.tools.ant.filters.ReplaceTokens
+
+group 'io.paul1365972.github'
+version 'dev-SNAPSHOT'
+
+task paperPaperclip(type: Exec, group: 'paper') {
+    commandLine "$BASH_PATH", 'ilblu', 'jar'
+}
+
+task paperPatch(type: Exec, group: 'paper') {
+    commandLine "$BASH_PATH", 'ilblu', 'patch'
+}
+
+task paperBuild(type: Exec, group: 'paper') {
+    commandLine "$BASH_PATH", 'ilblu', 'build'
+}
+
+task paperRebuildPatches(type: Exec, group: 'paper') {
+    commandLine "$BASH_PATH", 'ilblu', 'rebuild'
+}
+
+subprojects {
+    apply plugin: 'java'
+
+    // TODO propertyfy
+    group 'io.github.paul1365972'
+    version '1.15.2-R0.1-SNAPSHOT'
+
+    processResources {
+        filter ReplaceTokens, tokens: [FORK_NAME: FORK_NAME]
+    }
+}

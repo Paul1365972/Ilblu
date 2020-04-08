@@ -1,0 +1,31 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Paul1365972 <paul1365972@gmail.com>
+Date: Thu, 9 Apr 2020 16:15:07 +0200
+Subject: [PATCH] Auto accept EULA
+
+
+diff --git a/src/main/java/net/minecraft/server/EULA.java b/src/main/java/net/minecraft/server/EULA.java
+index cf00f35a5b7c2d2f6b6989e0855de8b882dcef50..99ae9bfb4b512cd65065c7e90b3c22e27ce8d255 100644
+--- a/src/main/java/net/minecraft/server/EULA.java
++++ b/src/main/java/net/minecraft/server/EULA.java
+@@ -70,7 +70,7 @@ public class EULA {
+                     Properties properties = new Properties();
+ 
+                     properties.setProperty("eula", "false");
+-                    properties.store(outputstream, "By changing the setting below to TRUE you are indicating your agreement to our EULA (https://account.mojang.com/documents/minecraft_eula).\nYou also agree that tacos are tasty, and the best food in the world.");  // Paper - fix lag;
++                    properties.store(outputstream, "By changing the setting below to TRUE you are indicating your agreement to our EULA (https://account.mojang.com/documents/minecraft_eula).");  // Ilblu - Remove disgusting Tacos // Paper - fix lag;
+                 } catch (Throwable throwable1) {
+                     throwable = throwable1;
+                     throw throwable1;
+diff --git a/src/main/java/net/minecraft/server/MinecraftServer.java b/src/main/java/net/minecraft/server/MinecraftServer.java
+index 6e3b5635585b1a5519c7aea45f60f2257c7c2365..82fc99081b88aec4b4b6d32df4dc7abaef66625b 100644
+--- a/src/main/java/net/minecraft/server/MinecraftServer.java
++++ b/src/main/java/net/minecraft/server/MinecraftServer.java
+@@ -1343,6 +1343,7 @@ public abstract class MinecraftServer extends IAsyncTaskHandlerReentrant<TickTas
+                 System.err.println( "If you do not agree to the above EULA please stop your server and remove this flag immediately." );
+             }
+             // Spigot End
++            eulaAgreed = true; // Ilblu - Auto accept eula
+             if (!eula.a() && !eulaAgreed) { // Spigot
+                 MinecraftServer.LOGGER.info("You need to agree to the EULA in order to run the server. Go to eula.txt for more info.");
+                 return;
