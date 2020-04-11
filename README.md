@@ -14,17 +14,25 @@ All game breaking changes will be disabled by default
 
 ## TODO
 
-*[ ] Actions/Workflow Integration
-*[ ] Improve README for newer users
-*[ ] Switch from Maven to Gradle
-  *[ ] Get rid of ugly build.gradle hack (1/2)
-*[ ] Further improve scripts
-  *[ ] Make scripts space safe
-  *[ ] Make more paper like
-*[ ] Actually make changes to the game
-*[ ] Centralise constants
-  *[x] Resource Token replacement
-  *[ ] Source code Token replacement
+- [ ] Actions/Workflow Integration
+- [ ] Improve README for newer users
+- [ ] Switch from Maven to Gradle (1/2)
+  - [x] Get rid of ugly build.gradle hack (2/2)
+  - [ ] Create gradle task chain
+  - [ ] Only include important imports (1/2)
+- [ ] Further improve scripts
+  - [x] Make scripts space safe
+  - [x] Rewrite all scripts
+  - [ ] Make more paper like (1/2)
+  - [ ] Test mc-dev imports
+  - [ ] Test library imports
+- [ ] Actually make changes to the game
+- [ ] Centralise constants
+  - [x] Resource Token replacement
+  - [ ] Source code Token replacement
+  - [ ] Reenable repositories and pushes
+- [ ] Make as easily forkable as possible
+  - [ ] Multi forking support
 
 ## Building
 

@@ -1,37 +1,26 @@
 #!/usr/bin/env bash
 
-SOURCE="${BASH_SOURCE[0]}"
-while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
-    DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
-    SOURCE="$(readlink "$SOURCE")"
-    [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE" # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
-done
-. $(dirname $SOURCE)/init.sh
+# Copied from https://github.com/PaperMC/Paper/blob/089d83568b6876cd01eacdbe49aba34e14336ccf/scripts/importmcdev.sh
+# License from Paper applies to this file
 
-workdir="$basedir"/Paper/work
-minecraftversion=$(cat "$basedir"/Paper/work/BuildData/info.json | grep minecraftVersion | cut -d '"' -f 4)
-decompiledir=$workdir/Minecraft/$minecraftversion/spigot
-
+(
+set -e
+basedir="$(cd "$1" && pwd -P)"
+source "$basedir/scripts/functions.sh"
 nms="net/minecraft/server"
 export MODLOG=""
-cd "$basedir"
+gitcmd="git -c commit.gpgsign=false"
 
-function containsElement {
-    local e
-    for e in "${@:2}"; do
-        [[ "$e" == "$1" ]] && return 0;
-    done
-    return 1
-}
+echo "Importing mc-dev files..."
+
+workdir="$basedir/Paper/work"
+minecraftversion=$(cat "$basedir/Paper/work/BuildData/info.json" | grep minecraftVersion | cut -d '"' -f 4)
+decompiledir="$workdir/Minecraft/$minecraftversion/spigot"
 
 export importedmcdev=""
 function import {
-    if [ -f "$basedir/Paper/Paper-Server/src/main/java/net/minecraft/server/$1.java" ]; then
-        echo "ALREADY IMPORTED $1"
-        return 0
-    fi
     export importedmcdev="$importedmcdev $1"
-    file="${1}.java"
+    file="$1.java"
     target="$basedir/Paper/Paper-Server/src/main/java/$nms/$file"
     base="$decompiledir/$nms/$file"
 
@@ -65,14 +54,15 @@ function importLibrary {
 }
 
 (
-    cd Paper/Paper-Server/
-    lastlog=$(git log -1 --oneline)
+    cd "$basedir/Paper/Paper-Server/"
+    lastlog=$($gitcmd log -1 --oneline)
     if [[ "$lastlog" = *"$FORK_NAME-Extra mc-dev Imports"* ]]; then
-        git reset --hard HEAD^
+        $gitcmd reset --hard HEAD^
     fi
 )
 
 files=$(cat "$basedir/patches/server/"* | grep "+++ b/src/main/java/net/minecraft/server/" | sort | uniq | sed 's/\+\+\+ b\/src\/main\/java\/net\/minecraft\/server\///g' | sed 's/.java//g')
+# Maybe "create mode " is correct here, probably not though
 nonnms=$(grep -R "new file mode" -B 1 "$basedir/patches/server/" | grep -v "new file mode" | grep -oE "net\/minecraft\/server\/.*.java" | grep -oE "[A-Za-z]+?.java$" --color=none | sed 's/.java//g')
 
 for f in $files; do
@@ -88,13 +78,16 @@ for f in $files; do
     fi
 done
 
-###############################################################################################
-###############################################################################################
-#################### ADD TEMPORARY ADDITIONS HERE #############################################
-###############################################################################################
-###############################################################################################
+########################################################
+########################################################
+########################################################
+#                   NMS IMPORTS
+# Temporarily add new NMS dev imports here before you run paper patch
+# but after you have paper rb'd your changes, remove the line from this file before committing.
+#
+# import FileName
 
-# import Foo
+
 
 ########################################################
 ########################################################
@@ -107,10 +100,14 @@ done
 importLibrary com.mojang datafixerupper com/mojang/datafixers/util Either.java
 
 ################
+
+# TODO figure out what and why this is here
 (
-    cd Paper/Paper-Server/
+    cd "$basedir/Paper/Paper-Server/"
     rm -rf nms-patches
-    git add src -A
-    echo -e "$FORK_NAME-Extra mc-dev Imports\n\n$MODLOG" | git commit src -F -
-    exit 0
+    $gitcmd add src -A
+    echo -e "$FORK_NAME-Extra mc-dev Imports\n\n$MODLOG" | $gitcmd commit src -F -
 )
+# This last echo is needed so the script doesn exit 1 and crash
+echo "Import mc-dev finished"
+) || exit 1

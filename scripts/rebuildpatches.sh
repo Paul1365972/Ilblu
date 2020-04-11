@@ -1,43 +1,69 @@
 #!/usr/bin/env bash
-# get base dir regardless of execution location
-SOURCE="${BASH_SOURCE[0]}"
-while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
-    DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
-    SOURCE="$(readlink "$SOURCE")"
-    [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE" # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
-done
-. $(dirname $SOURCE)/init.sh
 
-PS1="$"
+# Copied from https://github.com/PaperMC/Paper/blob/089d83568b6876cd01eacdbe49aba34e14336ccf/scripts/rebuildPatches.sh
+# License from Paper applies to this file
+
+(
+set -e
+basedir="$(cd "$1" && pwd -P)"
+source "$basedir/scripts/functions.sh"
+gitcmd="git -c commit.gpgsign=false -c core.safecrlf=false"
+
 echo "Rebuilding patch files from current fork state..."
-function savePatches {
-    what=$1
-    cd $basedir/$what/
 
-    mkdir -p $basedir/patches/$2
-    if [ -d ".git/rebase-apply" ]; then
+function cleanupPatches {
+    cd "$1"
+    for patch in *.patch; do
+        gitver=$(tail -n 2 "$patch" | grep -ve "^$" | tail -n 1)
+        diffs=$($gitcmd diff --staged "$patch" | grep --color=none -E "^(\+|\-)" | grep --color=none -Ev "(From [a-f0-9]{32,}|\-\-\- a|\+\+\+ b|^.index)")
+
+        testver=$(echo "$diffs" | tail -n 2 | grep --color=none -ve "^$" | tail -n 1 | grep --color=none "$gitver")
+        if [ "x$testver" != "x" ]; then
+            diffs=$(echo "$diffs" | sed 'N;$!P;$!D;$d')
+        fi
+
+        if [ "x$diffs" == "x" ] ; then
+            $gitcmd reset HEAD "$patch" >/dev/null
+            $gitcmd checkout -- "$patch" >/dev/null
+        fi
+    done
+}
+
+function savePatches {
+    target=$1
+    patchdir=$2
+    echo "Formatting patches for $target..."
+
+    if [ -d "$basedir/$target/.git/rebase-apply" ]; then
         # in middle of a rebase, be smarter
         echo "REBASE DETECTED - PARTIAL SAVE"
-        last=$(cat ".git/rebase-apply/last")
-        next=$(cat ".git/rebase-apply/next")
-        declare -a files=("$basedir/patches/$2/"*.patch)
+        last=$(cat "$basedir/$target/.git/rebase-apply/last")
+        next=$(cat "$basedir/$target/.git/rebase-apply/next")
+        orderedfiles=$(find "$basedir/$target" -name "*.patch" | sort)
         for i in $(seq -f "%04g" 1 1 $last)
         do
             if [ $i -lt $next ]; then
-                rm "${files[`expr $i - 1`]}"
+                rm $(echo "$orderedfiles{@}" | sed -n "${i}p")
             fi
         done
     else
-        rm $basedir/patches/$2/*.patch
+        find "$basedir/$patchdir" -name "*.patch" -type f -delete
     fi
 
-    git format-patch --no-signature --zero-commit --full-index --no-stat -N -o $basedir/patches/$2 upstream/upstream
-    cd $basedir
-    git add -A $basedir/patches/$2
-    echo "  Patches saved for $what to patches/$2"
+    cd "$basedir/$target/"
+
+    $gitcmd format-patch --no-signature --zero-commit --full-index --no-stat -N -o "$basedir/$patchdir" upstream/upstream
+    cd "$basedir/"
+    $gitcmd add -A "$basedir/$patchdir"
+    # Not needed because we do --no-signature
+    # if [ "$nofilter" == "0" ]; then
+    #     cleanupPatches "$basedir/${what_name}-Patches"
+    # fi
+    echo "  Patches saved for $target to $patchdir"
 }
 
-savePatches ${FORK_NAME}-API api
-savePatches ${FORK_NAME}-Server server
+savePatches ${FORK_NAME}-API patches/api
+savePatches ${FORK_NAME}-Server patches/server
 
 $basedir/scripts/push.sh
+) || exit 1
