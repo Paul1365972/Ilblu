@@ -22,15 +22,16 @@ index 67fb370cad6924895a6b27052dbd5c1767e3f0c9..d5f2dd3718cccc51d8e5dae1d72d0b8b
  
 diff --git a/build.gradle b/build.gradle
 new file mode 100644
-index 0000000000000000000000000000000000000000..52b2a9950ad0ac95ec33c3d680b2779e8de7b806
+index 0000000000000000000000000000000000000000..02a2638fae19b480199d1a508e7f2851b89ea0b5
 --- /dev/null
 +++ b/build.gradle
-@@ -0,0 +1,104 @@
+@@ -0,0 +1,124 @@
 +import com.github.jengelman.gradle.plugins.shadow.transformers.Log4j2PluginsCacheFileTransformer
 +
 +plugins {
 +    id 'java'
 +    id 'com.github.johnrengelman.shadow' version '5.2.0'
++    id "com.github.dkorotych.gradle-maven-exec" version "2.2.1"
 +}
 +
 +ext.minecraftversion = '1.15.2'
@@ -42,21 +43,14 @@ index 0000000000000000000000000000000000000000..52b2a9950ad0ac95ec33c3d680b2779e
 +
 +sourceCompatibility = JavaVersion.VERSION_1_8
 +
-+task parentGitDescribe(type: Exec) {
-+    commandLine "$GIT_PATH", 'rev-parse', '--short', '--always', 'HEAD'
-+    workingDir '../'
-+    standardOutput = new ByteArrayOutputStream()
-+    ext.output = { return standardOutput.toString().strip() }
-+}
-+
 +task buildManifest() {
-+    dependsOn tasks.parentGitDescribe
++    dependsOn tasks.gitDescribeFork
 +    doLast {
 +        ext.manifest = manifest {
 +            attributes(
 +                    "Main-Class": "org.bukkit.craftbukkit.Main",
 +                    "Implementation-Title": "CraftBukkit",
-+                    "Implementation-Version": "${versionprefix}${tasks.parentGitDescribe.output()}",
++                    "Implementation-Version": "${versionprefix}${tasks.gitDescribeFork.output()}",
 +                    "Implementation-Vendor": "${new Date().format('yyyyMMdd-HHmm')}",
 +                    "Specification-Title": "Bukkit",
 +                    "Specification-Version": "${apiversion}",
@@ -66,6 +60,27 @@ index 0000000000000000000000000000000000000000..52b2a9950ad0ac95ec33c3d680b2779e
 +            attributes("Sealed": true, "com/bukkit/")
 +            attributes("Sealed": true, "org/bukkit/")
 +        }
++    }
++}
++
++task paperclip(type: MavenExec, group: 'build') {
++    dependsOn 'shadowJar', 'parseBuildData'
++    goals 'clean', 'package'
++    workingDir "../Paper/work/Paperclip/"
++    doFirst {
++        define([
++                'mcver': tasks.parseBuildData.mcver,
++                'paperjar': tasks.shadowJar.outputs.files.singleFile.path,
++                'vanillajar': file("../Paper/work/Minecraft/${tasks.parseBuildData.mcver}/${tasks.parseBuildData.mcver}.jar").path,
++        ])
++    }
++    doLast {
++        copy {
++            from "../Paper/work/Paperclip/assembly/target/paperclip-${tasks.parseBuildData.mcver}.jar"
++            into "../"
++            rename { "${FORK_NAME.toLowerCase()}-paperclip.jar" }
++        }
++        println "Copied final paperclip jar"
 +    }
 +}
 +
@@ -124,7 +139,12 @@ index 0000000000000000000000000000000000000000..52b2a9950ad0ac95ec33c3d680b2779e
 +    runtimeOnly "org.xerial:sqlite-jdbc:3.30.1"
 +    runtimeOnly "mysql:mysql-connector-java:5.1.48"
 +    testImplementation "junit:junit:4.13"
-+    // testImplementation "org.hamcrest:hamcrest-library:1.3" // Already in junit
++    testImplementation "org.hamcrest:hamcrest-library:1.3"
++
++    // Inherit from api
++    implementation "commons-lang:commons-lang:2.6"
++    implementation "net.md-5:bungeecord-chat:1.15-SNAPSHOT"
++    implementation "org.yaml:snakeyaml:1.25"
 +}
 +
 +test {

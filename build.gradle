@@ -1,4 +1,5 @@
 import org.apache.tools.ant.filters.ReplaceTokens
+import groovy.json.JsonSlurper
 
 group 'io.paul1365972.github'
 version 'dev-SNAPSHOT'
@@ -33,5 +34,24 @@ subprojects {
 
     processResources {
         filter ReplaceTokens, tokens: [FORK_NAME: FORK_NAME]
+    }
+}
+
+allprojects {
+    // TODO Find fix to not rely on rootProject as it may change
+    task parseBuildData() {
+        ext.mcver = ""
+        def buildDataInfo = rootProject.file("./Paper/work/BuildData/info.json")
+        inputs.file buildDataInfo
+        doLast {
+            ext.mcver = new JsonSlurper().parse(buildDataInfo)['minecraftVersion']
+        }
+    }
+
+    task gitDescribeFork(type: Exec) {
+        commandLine "$GIT_PATH", 'rev-parse', '--short', '--always', 'HEAD'
+        workingDir rootProject.projectDir
+        standardOutput = new ByteArrayOutputStream()
+        ext.output = { return standardOutput.toString().strip() }
     }
 }
