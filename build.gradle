@@ -1,6 +1,11 @@
 import org.apache.tools.ant.filters.ReplaceTokens
 import groovy.json.JsonSlurper
 
+plugins {
+    id 'com.github.johnrengelman.shadow' version '5.2.0' apply false
+    id 'com.github.dkorotych.gradle-maven-exec' version '2.2.1' apply false
+}
+
 group 'io.paul1365972.github'
 version 'dev-SNAPSHOT'
 
@@ -28,25 +33,29 @@ task paperUpstream(type: Exec, group: 'paper') {
     commandLine "$BASH_PATH", 'ilblu', 'upstream'
 }
 
-
 subprojects {
     apply plugin: 'java'
     apply plugin: 'maven-publish'
+    apply plugin: 'com.github.johnrengelman.shadow'
 
     // TODO propertyfy
     group 'io.github.paul1365972'
     version '1.15.2-R0.1-SNAPSHOT'
 
+    sourceCompatibility = JavaVersion.VERSION_1_8
+
     publishing {
         publications {
             maven(MavenPublication) {
                 from components.java
+                artifact shadowJar
             }
         }
     }
 
     processResources {
         filter ReplaceTokens, tokens: [FORK_NAME: FORK_NAME]
+
         into("META-INF/maven/$project.group/${project.name.toLowerCase()}") {
             from { generatePomFileForMavenPublication }
             rename ".*", "pom.xml"
@@ -65,21 +74,17 @@ subprojects {
     }
 }
 
-allprojects {
-    // TODO Find fix to not rely on rootProject as it may change
-    task parseBuildData() {
-        ext.mcver = ""
-        def buildDataInfo = rootProject.file("./$WORK_PATH/BuildData/info.json")
-        inputs.file buildDataInfo
-        doLast {
-            ext.mcver = new JsonSlurper().parse(buildDataInfo)['minecraftVersion']
-        }
+task parseBuildData() {
+    ext.mcver = ""
+    def buildDataInfo = file("./$WORK_PATH/BuildData/info.json")
+    inputs.file buildDataInfo
+    doLast {
+        ext.mcver = new JsonSlurper().parse(buildDataInfo)['minecraftVersion']
     }
+}
 
-    task gitDescribeFork(type: Exec) {
-        commandLine "$GIT_PATH", 'rev-parse', '--short', '--always', 'HEAD'
-        workingDir rootProject.projectDir
-        standardOutput = new ByteArrayOutputStream()
-        ext.output = { return standardOutput.toString().replaceAll("\\s", "") }
-    }
+task gitDescribeFork(type: Exec) {
+    commandLine "$GIT_PATH", 'rev-parse', '--short', '--always', 'HEAD'
+    standardOutput = new ByteArrayOutputStream()
+    ext.output = { return standardOutput.toString().replaceAll("\\s", "") }
 }

@@ -22,17 +22,26 @@ index e431e3435737e28394d81b56568a08b3c3148b9b..5c19022b09c42feb5592cc551262f799
  
 diff --git a/build.gradle b/build.gradle
 new file mode 100644
-index 0000000000000000000000000000000000000000..d3164c9496eb12687856431b653a9848cfa70768
+index 0000000000000000000000000000000000000000..f19adb57f5cfa8ed63c160f2a96bbafdc8649cf9
 --- /dev/null
 +++ b/build.gradle
-@@ -0,0 +1,46 @@
+@@ -0,0 +1,55 @@
 +plugins {
 +    id 'java'
 +    id 'maven-publish'
-+    id 'com.github.johnrengelman.shadow' version '5.2.0'
++    id 'com.github.johnrengelman.shadow'
 +}
 +
-+sourceCompatibility = JavaVersion.VERSION_1_8
++java {
++    withJavadocJar()
++    withSourcesJar()
++}
++
++javadoc {
++    options {
++        addStringOption('Xdoclint:none', '-quiet')
++    }
++}
 +
 +shadowJar {
 +    exclude 'module-info.class'
