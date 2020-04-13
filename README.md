@@ -1,5 +1,7 @@
 # Ilblu
 
+![Build Gradle](https://github.com/Paul1365972/Ilblu/workflows/Build%20Gradle/badge.svg)
+
 Ilblu is a fork of the Minecraft Server Software [Paper](https://github.com/PaperMC/Paper), it should support all Spigot plugins.
 This project uses combined changes and small improvements from:
 - [Paper](https://github.com/PaperMC/Paper)*
@@ -12,6 +14,8 @@ This project uses combined changes and small improvements from:
 - [Akarin](https://github.com/Akarin-project/Akarin)
 
 *Projects whose patches were copied are marked with an Asterisk*
+
+The main goal of this project is creating a better framework for forks of paper and in turn also their forks
 
 ## TODO
 
