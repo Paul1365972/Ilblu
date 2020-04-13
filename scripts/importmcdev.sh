@@ -13,8 +13,8 @@ gitcmd="git -c commit.gpgsign=false"
 
 echo "Importing mc-dev files..."
 
-workdir="$basedir/Paper/work"
-minecraftversion=$(cat "$basedir/Paper/work/BuildData/info.json" | grep minecraftVersion | cut -d '"' -f 4)
+workdir="$basedir/$WORK_PATH"
+minecraftversion=$(cat "$workdir/BuildData/info.json" | grep minecraftVersion | cut -d '"' -f 4)
 decompiledir="$workdir/Minecraft/$minecraftversion/spigot"
 
 export importedmcdev=""
@@ -104,7 +104,7 @@ importLibrary com.mojang datafixerupper com/mojang/datafixers/util Either.java
 # TODO figure out what and why this is here
 (
     cd "$basedir/Paper/Paper-Server/"
-    rm -rf nms-patches
+    rm -rf nms-patches applyPatches.sh makePatches.sh
     $gitcmd add src -A
     echo -e "$FORK_NAME-Extra mc-dev Imports\n\n$MODLOG" | $gitcmd commit src -F -
 )

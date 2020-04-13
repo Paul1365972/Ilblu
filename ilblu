@@ -47,7 +47,6 @@ case "$1" in
     "b" | "bu" | "build")
     (
         set -e
-        # TODO Remove?
         mvn -N install
         cd "$basedir/${FORK_NAME}-API" && mvn -e clean install
         cd "$basedir/${FORK_NAME}-Server" && mvn -e clean install
@@ -61,7 +60,6 @@ case "$1" in
           ./scripts/upstream.sh "$basedir"
        fi
        ./scripts/apply.sh "$basedir"
-       # TODO Remove?
        mvn -N install
        cd "$basedir/${FORK_NAME}-API" && mvn -e clean install
        cd "$basedir/${FORK_NAME}-Server" && mvn -e clean install

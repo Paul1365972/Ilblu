@@ -32,7 +32,7 @@ mcVer=$(mvn org.apache.maven.plugins:maven-help-plugin:3.2.0:evaluate -Dexpressi
 cd "$basedir/"
 source "$basedir/scripts/importmcdev.sh"
 
-minecraftversion=$(cat "$basedir/Paper/work/BuildData/info.json" | grep minecraftVersion | cut -d '"' -f 4)
+minecraftversion=$(cat "$basedir/$WORK_PATH/BuildData/info.json" | grep minecraftVersion | cut -d '"' -f 4)
 version=$(echo -e "Paper: $parentVer\nmc-dev:$importedmcdev")
 tag="$minecraftversion-$mcVer-$(echo -e $version | sha1sum | awk '{print $1}')"
 # echo "$tag" > "$basedir"/current-paper

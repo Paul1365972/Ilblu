@@ -22,14 +22,15 @@ index 67fb370cad6924895a6b27052dbd5c1767e3f0c9..d5f2dd3718cccc51d8e5dae1d72d0b8b
  
 diff --git a/build.gradle b/build.gradle
 new file mode 100644
-index 0000000000000000000000000000000000000000..02a2638fae19b480199d1a508e7f2851b89ea0b5
+index 0000000000000000000000000000000000000000..234987f90226731e0570ae493d3767d58756fddc
 --- /dev/null
 +++ b/build.gradle
-@@ -0,0 +1,124 @@
+@@ -0,0 +1,125 @@
 +import com.github.jengelman.gradle.plugins.shadow.transformers.Log4j2PluginsCacheFileTransformer
 +
 +plugins {
 +    id 'java'
++    id 'maven-publish'
 +    id 'com.github.johnrengelman.shadow' version '5.2.0'
 +    id "com.github.dkorotych.gradle-maven-exec" version "2.2.1"
 +}

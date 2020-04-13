@@ -1,0 +1,60 @@
+name: Build Gradle
+on: [push, pull_request]
+
+jobs:
+  build-all:
+    strategy:
+      matrix:
+        java: [8]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Initalize git
+        run: |
+          git config --global user.email "ci@github.com"
+          git config --global user.name "Github CI"
+      - name: Set up JDK ${{ matrix.java }}
+        uses: actions/setup-java@v1
+        with:
+          java-version: ${{ matrix.java }}
+      - uses: actions/cache@v1
+        name: Cache maven
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+      - uses: actions/cache@v1
+        name: Cache gradle
+        with:
+          path: ~/.gradle/caches
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*gradle*') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+      - name: Fetch paper commit
+        id: paper-version
+        run: echo "::set-output name=commit::$(git rev-parse @:./Paper)"
+      - uses: actions/cache@v1
+        name: Cache paper
+        id: cache-paper
+        with:
+          path: Paper
+          key: ${{ runner.os }}-paper-${{ steps.paper-version.outputs.commit }}
+      - name: Setup paper
+        if: steps.cache-paper.outputs.cache-hit != 'true'
+        run: ./gradlew paperUpstream
+      - name: Setup workspace
+        run: ./gradlew paperApplyPatchesFast
+      - name: Build with Gradle
+        id: build
+        run: ./gradlew jar sourcesJar javadocJar shadowJar paperclip
+      - name: Upload API Artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: ilblu-api
+          path: Ilblu-API/build/libs/
+      - name: Upload Paperclip Artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: ilblu-paperclip
+          path: ilblu-paperclip.jar

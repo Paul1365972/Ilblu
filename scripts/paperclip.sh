@@ -10,7 +10,7 @@ source "$basedir/scripts/functions.sh"
 
 echo "Creating paperclip..."
 
-workdir="$basedir/Paper/work"
+workdir="$basedir/$WORK_PATH"
 mcver=$(cat "$workdir/BuildData/info.json" | grep minecraftVersion | cut -d '"' -f 4)
 paperjar="$basedir/$FORK_NAME-Server/target/${FORK_NAME,,}-$mcver.jar"
 vanillajar="$workdir/Minecraft/$mcver/$mcver.jar"

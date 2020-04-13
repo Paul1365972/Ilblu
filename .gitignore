@@ -22,6 +22,7 @@ testserver/
 # Gradle
 .gradle/
 build/
+!gradle/wrapper/gradle-wrapper.jar
 
 # Maven
 target/

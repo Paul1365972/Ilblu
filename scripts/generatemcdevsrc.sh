@@ -13,8 +13,8 @@ gitcmd="git -c commit.gpgsign=false"
 echo "Generating mc-dev source..."
 
 cd "$basedir/"
-minecraftversion=$(cat "$basedir/Paper/work/BuildData/info.json"  | grep minecraftVersion | cut -d '"' -f 4)
-srcnms="$basedir/Paper/work/Minecraft/$minecraftversion/spigot/net/minecraft/server"
+minecraftversion=$(cat "$basedir/$WORK_PATH/BuildData/info.json"  | grep minecraftVersion | cut -d '"' -f 4)
+srcnms="$basedir/$WORK_PATH/Minecraft/$minecraftversion/spigot/net/minecraft/server"
 forknms="$basedir/$FORK_NAME-Server/src/main/java/net/minecraft/server"
 mcdevnms="$basedir/mc-dev/src/net/minecraft/server"
 
@@ -44,7 +44,7 @@ done
 echo "Built mc-dev to be included in your project for src access";
 
 cd "$basedir/mc-dev/"
-$gitcmd add . -A
-$gitcmd commit --allow-empty . -m "mc-dev"
+$gitcmd add -all
+$gitcmd commit --allow-empty -m "mc-dev"
 $gitcmd tag -a "$parentVer" -m "$parentVer" 2>/dev/null
 ) || exit 1
