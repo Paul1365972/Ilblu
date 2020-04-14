@@ -52,10 +52,10 @@ index 49a38c6608b652ff48ef4eaca0dd3ccb1ba570e3..5c15e85875fe06fb50bfa90840899418
                  JsonObject json = new Gson().fromJson(reader, JsonObject.class);
                  int latest = json.get("build").getAsInt();
 diff --git a/src/main/java/net/minecraft/server/MinecraftServer.java b/src/main/java/net/minecraft/server/MinecraftServer.java
-index c9deaffc4a317c8ec75d9e6ef5889ab909e2fbe8..6e3b5635585b1a5519c7aea45f60f2257c7c2365 100644
+index a9b5337512c5c7d71be68826cafb6c3c5528bd3e..239dc40aaf4fe0919db2e82c8005449d33eb46ec 100644
 --- a/src/main/java/net/minecraft/server/MinecraftServer.java
 +++ b/src/main/java/net/minecraft/server/MinecraftServer.java
-@@ -1484,7 +1484,7 @@ public abstract class MinecraftServer extends IAsyncTaskHandlerReentrant<TickTas
+@@ -1511,7 +1511,7 @@ public abstract class MinecraftServer extends IAsyncTaskHandlerReentrant<TickTas
      }
  
      public String getServerModName() {
@@ -65,7 +65,7 @@ index c9deaffc4a317c8ec75d9e6ef5889ab909e2fbe8..6e3b5635585b1a5519c7aea45f60f225
  
      public CrashReport b(CrashReport crashreport) {
 diff --git a/src/main/java/org/bukkit/craftbukkit/CraftServer.java b/src/main/java/org/bukkit/craftbukkit/CraftServer.java
-index b9a398bc577b16317057d70bb43a261b078d67a9..e807f956cb929778e0fe03595e8fd92cdf74769a 100644
+index 8cc0f66ce52d2c0cedef682b530a852fde38526a..68f6c51c3c6722fa3861d01b289775e224c8a1f6 100644
 --- a/src/main/java/org/bukkit/craftbukkit/CraftServer.java
 +++ b/src/main/java/org/bukkit/craftbukkit/CraftServer.java
 @@ -203,7 +203,7 @@ import javax.annotation.Nullable; // Paper

@@ -4,13 +4,13 @@ Date: Thu, 9 Apr 2020 15:54:33 +0200
 Subject: [PATCH] Add config
 
 
-diff --git a/src/main/java/io/github/paul1365972/ilblu/commands/IlbluCommand.java b/src/main/java/io/github/paul1365972/ilblu/commands/IlbluCommand.java
+diff --git a/src/main/java/io/github/paul1365972/ilblu/IlbluCommand.java b/src/main/java/io/github/paul1365972/ilblu/IlbluCommand.java
 new file mode 100644
-index 0000000000000000000000000000000000000000..a03f921801de9e79213163a9a1290bc7756093f7
+index 0000000000000000000000000000000000000000..dd3f520bd6e0fec8184d05aaddb0ba50cb3d93f6
 --- /dev/null
-+++ b/src/main/java/io/github/paul1365972/ilblu/commands/IlbluCommand.java
++++ b/src/main/java/io/github/paul1365972/ilblu/IlbluCommand.java
 @@ -0,0 +1,65 @@
-+package io.github.paul1365972.ilblu.commands;
++package io.github.paul1365972.ilblu;
 +
 +import net.minecraft.server.MinecraftServer;
 +import net.minecraft.server.WorldServer;
@@ -58,7 +58,7 @@ index 0000000000000000000000000000000000000000..a03f921801de9e79213163a9a1290bc7
 +            Command.broadcastCommandMessage(sender, ChatColor.RED + "If you encounter any issues please use the /stop command to restart your server.");
 +
 +            MinecraftServer console = MinecraftServer.getServer();
-+            io.github.paul1365972.ilblu.config.IlbluConfig.init((File) console.options.valueOf("ilblu-settings"));
++            IlbluConfig.init((File) console.options.valueOf("ilblu-settings"));
 +            for (WorldServer world : console.getWorlds()) {
 +                world.ilbluConfig.init();
 +            }
@@ -75,16 +75,15 @@ index 0000000000000000000000000000000000000000..a03f921801de9e79213163a9a1290bc7
 +        return true;
 +    }
 +}
-diff --git a/src/main/java/io/github/paul1365972/ilblu/config/IlbluConfig.java b/src/main/java/io/github/paul1365972/ilblu/config/IlbluConfig.java
+diff --git a/src/main/java/io/github/paul1365972/ilblu/IlbluConfig.java b/src/main/java/io/github/paul1365972/ilblu/IlbluConfig.java
 new file mode 100644
-index 0000000000000000000000000000000000000000..41ce79c121197f0bbdb3d6ab5698c0e241ddf900
+index 0000000000000000000000000000000000000000..7502d6582d4d2937571a47967a5f4e6482d5e8a6
 --- /dev/null
-+++ b/src/main/java/io/github/paul1365972/ilblu/config/IlbluConfig.java
-@@ -0,0 +1,185 @@
-+package io.github.paul1365972.ilblu.config;
++++ b/src/main/java/io/github/paul1365972/ilblu/IlbluConfig.java
+@@ -0,0 +1,184 @@
++package io.github.paul1365972.ilblu;
 +
 +import com.google.common.base.Throwables;
-+import io.github.paul1365972.ilblu.commands.IlbluCommand;
 +import net.minecraft.server.MinecraftServer;
 +import org.bukkit.Bukkit;
 +import org.bukkit.command.Command;
@@ -267,13 +266,13 @@ index 0000000000000000000000000000000000000000..41ce79c121197f0bbdb3d6ab5698c0e2
 +
 +}
 \ No newline at end of file
-diff --git a/src/main/java/io/github/paul1365972/ilblu/config/IlbluWorldConfig.java b/src/main/java/io/github/paul1365972/ilblu/config/IlbluWorldConfig.java
+diff --git a/src/main/java/io/github/paul1365972/ilblu/IlbluWorldConfig.java b/src/main/java/io/github/paul1365972/ilblu/IlbluWorldConfig.java
 new file mode 100644
-index 0000000000000000000000000000000000000000..e4df63b7fc1cb1148b1690251789adc772215f0c
+index 0000000000000000000000000000000000000000..84a0e4d353fe0ea1b98f4a2f089a10b8a4b4381c
 --- /dev/null
-+++ b/src/main/java/io/github/paul1365972/ilblu/config/IlbluWorldConfig.java
-@@ -0,0 +1,63 @@
-+package io.github.paul1365972.ilblu.config;
++++ b/src/main/java/io/github/paul1365972/ilblu/IlbluWorldConfig.java
+@@ -0,0 +1,62 @@
++package io.github.paul1365972.ilblu;
 +
 +import com.destroystokyo.paper.PaperWorldConfig;
 +import org.bukkit.configuration.file.YamlConfiguration;
@@ -281,8 +280,7 @@ index 0000000000000000000000000000000000000000..e4df63b7fc1cb1148b1690251789adc7
 +
 +import java.util.List;
 +
-+import static io.github.paul1365972.ilblu.config.IlbluConfig.log;
-+import static io.github.paul1365972.ilblu.config.IlbluConfig.logError;
++import static io.github.paul1365972.ilblu.IlbluConfig.log;
 +
 +public class IlbluWorldConfig {
 +    private final String worldName;
@@ -337,7 +335,7 @@ index 0000000000000000000000000000000000000000..e4df63b7fc1cb1148b1690251789adc7
 +    }
 +}
 diff --git a/src/main/java/net/minecraft/server/DedicatedServer.java b/src/main/java/net/minecraft/server/DedicatedServer.java
-index 1ef7890da599d13e784861035e7891efcc4cd504..d720ac974f386b33b930f277b41bb2b990ee412e 100644
+index 1ef7890da599d13e784861035e7891efcc4cd504..a5608505997e16f99498bb87171a9b79ae06839d 100644
 --- a/src/main/java/net/minecraft/server/DedicatedServer.java
 +++ b/src/main/java/net/minecraft/server/DedicatedServer.java
 @@ -192,6 +192,15 @@ public class DedicatedServer extends MinecraftServer implements IMinecraftServer
@@ -346,25 +344,25 @@ index 1ef7890da599d13e784861035e7891efcc4cd504..d720ac974f386b33b930f277b41bb2b9
          com.destroystokyo.paper.PaperConfig.registerCommands();
 +        // Ilblu start
 +        try {
-+            io.github.paul1365972.ilblu.config.IlbluConfig.init((File) options.valueOf("ilblu-settings"));
++            io.github.paul1365972.ilblu.IlbluConfig.init((File) options.valueOf("ilblu-settings"));
 +        } catch (Exception e) {
 +            DedicatedServer.LOGGER.error("Unable to load server configuration", e);
 +            return false;
 +        }
-+        io.github.paul1365972.ilblu.config.IlbluConfig.registerCommands();
++        io.github.paul1365972.ilblu.IlbluConfig.registerCommands();
 +        // Ilblu end
          com.destroystokyo.paper.VersionHistoryManager.INSTANCE.getClass(); // load version history now
          // Paper end
  
 diff --git a/src/main/java/net/minecraft/server/World.java b/src/main/java/net/minecraft/server/World.java
-index d554d4cf0f0a13b598c6b14d618ba463c9895f35..a8bea1ebdcd8400b6191f7ce06b84ac4477459da 100644
+index d554d4cf0f0a13b598c6b14d618ba463c9895f35..bfc3461d5497c1c23fea9f8e8fdddfb511e788d7 100644
 --- a/src/main/java/net/minecraft/server/World.java
 +++ b/src/main/java/net/minecraft/server/World.java
 @@ -82,6 +82,8 @@ public abstract class World implements GeneratorAccess, AutoCloseable {
      public final com.destroystokyo.paper.PaperWorldConfig paperConfig; // Paper
      public final ChunkPacketBlockController chunkPacketBlockController; // Paper - Anti-Xray
  
-+    public final io.github.paul1365972.ilblu.config.IlbluWorldConfig ilbluConfig; // Ilblu
++    public final io.github.paul1365972.ilblu.IlbluWorldConfig ilbluConfig; // Ilblu
 +
      public final co.aikar.timings.WorldTimingsHandler timings; // Paper
      public static BlockPosition lastPhysicsProblem; // Spigot
@@ -373,19 +371,19 @@ index d554d4cf0f0a13b598c6b14d618ba463c9895f35..a8bea1ebdcd8400b6191f7ce06b84ac4
      protected World(WorldData worlddata, DimensionManager dimensionmanager, BiFunction<World, WorldProvider, IChunkProvider> bifunction, GameProfilerFiller gameprofilerfiller, boolean flag, org.bukkit.generator.ChunkGenerator gen, org.bukkit.World.Environment env) {
          this.spigotConfig = new org.spigotmc.SpigotWorldConfig( worlddata.getName() ); // Spigot
          this.paperConfig = new com.destroystokyo.paper.PaperWorldConfig(worlddata.getName(), this.spigotConfig); // Paper
-+        this.ilbluConfig = new io.github.paul1365972.ilblu.config.IlbluWorldConfig(worlddata.getName(), this.paperConfig, this.spigotConfig); // Ilblu
++        this.ilbluConfig = new io.github.paul1365972.ilblu.IlbluWorldConfig(worlddata.getName(), this.paperConfig, this.spigotConfig); // Ilblu
          this.chunkPacketBlockController = this.paperConfig.antiXray ? new ChunkPacketBlockControllerAntiXray(this.paperConfig) : ChunkPacketBlockController.NO_OPERATION_INSTANCE; // Paper - Anti-Xray
          this.generator = gen;
          this.world = new CraftWorld((WorldServer) this, gen, env);
 diff --git a/src/main/java/org/bukkit/craftbukkit/CraftServer.java b/src/main/java/org/bukkit/craftbukkit/CraftServer.java
-index e807f956cb929778e0fe03595e8fd92cdf74769a..dd9ec351fd6a75b7c5791dc3ebfe35e5bcccf00e 100644
+index 68f6c51c3c6722fa3861d01b289775e224c8a1f6..31dd53aa904c5ad16e38da8e63ff6e9f96f15057 100644
 --- a/src/main/java/org/bukkit/craftbukkit/CraftServer.java
 +++ b/src/main/java/org/bukkit/craftbukkit/CraftServer.java
 @@ -806,6 +806,7 @@ public final class CraftServer implements Server {
  
          org.spigotmc.SpigotConfig.init((File) console.options.valueOf("spigot-settings")); // Spigot
          com.destroystokyo.paper.PaperConfig.init((File) console.options.valueOf("paper-settings")); // Paper
-+        io.github.paul1365972.ilblu.config.IlbluConfig.init((File) console.options.valueOf("ilblu-settings")); // Ilblu
++        io.github.paul1365972.ilblu.IlbluConfig.init((File) console.options.valueOf("ilblu-settings")); // Ilblu
          for (WorldServer world : console.getWorlds()) {
              world.worldData.setDifficulty(config.difficulty);
              world.setSpawnFlags(config.spawnMonsters, config.spawnAnimals);
@@ -401,11 +399,11 @@ index e807f956cb929778e0fe03595e8fd92cdf74769a..dd9ec351fd6a75b7c5791dc3ebfe35e5
          reloadData();
          org.spigotmc.SpigotConfig.registerCommands(); // Spigot
          com.destroystokyo.paper.PaperConfig.registerCommands(); // Paper
-+        io.github.paul1365972.ilblu.config.IlbluConfig.registerCommands(); // Ilblu
++        io.github.paul1365972.ilblu.IlbluConfig.registerCommands(); // Ilblu
          overrideAllCommandBlockCommands = commandsConfiguration.getStringList("command-block-overrides").contains("*");
          ignoreVanillaPermissions = commandsConfiguration.getBoolean("ignore-vanilla-permissions");
  
-@@ -2082,6 +2085,14 @@ public final class CraftServer implements Server {
+@@ -2092,6 +2095,14 @@ public final class CraftServer implements Server {
              return com.destroystokyo.paper.PaperConfig.config;
          }
  
@@ -413,7 +411,7 @@ index e807f956cb929778e0fe03595e8fd92cdf74769a..dd9ec351fd6a75b7c5791dc3ebfe35e5
 +        @Override
 +        public YamlConfiguration getIlbluConfig()
 +        {
-+            return io.github.paul1365972.ilblu.config.IlbluConfig.config;
++            return io.github.paul1365972.ilblu.IlbluConfig.config;
 +        }
 +        // Ilblu end
 +
