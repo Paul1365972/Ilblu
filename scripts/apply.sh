@@ -61,8 +61,8 @@ function applyPatch {
 "$basedir/scripts/importmcdev.sh" "$basedir" || exit 1
 
 (
-    applyPatch Paper/Paper-API ${FORK_NAME}-API HEAD api $API_REPO &&
-    applyPatch Paper/Paper-Server ${FORK_NAME}-Server HEAD server $SERVER_REPO
+    applyPatch Paper/Paper-API ${FORK_NAME}-API HEAD api &&
+    applyPatch Paper/Paper-Server ${FORK_NAME}-Server HEAD server
 
     # TODO this runs every time (and also twice)
     # if we have previously created mcdev, update it

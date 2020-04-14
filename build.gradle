@@ -6,7 +6,7 @@ plugins {
     id 'com.github.dkorotych.gradle-maven-exec' version '2.2.1' apply false
 }
 
-group 'io.paul1365972.github'
+group "$GROUP"
 version 'dev-SNAPSHOT'
 
 task paperPaperclip(type: Exec, group: 'paper') {
@@ -38,10 +38,6 @@ subprojects {
     apply plugin: 'maven-publish'
     apply plugin: 'com.github.johnrengelman.shadow'
 
-    // TODO propertyfy
-    group 'io.github.paul1365972'
-    version '1.15.2-R0.1-SNAPSHOT'
-
     sourceCompatibility = JavaVersion.VERSION_1_8
 
     publishing {
@@ -58,7 +54,7 @@ subprojects {
 
         into("META-INF/maven/$project.group/${project.name.toLowerCase()}") {
             from { generatePomFileForMavenPublication }
-            rename ".*", "pom.xml"
+            rename { "pom.xml" }
         }
         into("META-INF/maven/$project.group/${project.name.toLowerCase()}") {
             from { generatePomProperties }

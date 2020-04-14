@@ -52,7 +52,4 @@ echo -e "$version"
 
 tag Paper-API
 tag Paper-Server
-
-pushRepo Paper-API $PAPER_API_REPO $tag
-pushRepo Paper-Server $PAPER_SERVER_REPO $tag
 ) || exit 1

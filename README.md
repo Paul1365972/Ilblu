@@ -19,7 +19,7 @@ The main goal of this project is creating a better framework for forks of paper 
 
 ## TODO
 
-- [ ] Actions/Workflow Integration
+- [x] Actions/Workflow Integration
 - [x] Improve README for newer users
 - [ ] Switch from Maven to Gradle (1/2)
   - [x] Get rid of ugly build.gradle hack (2/2)
@@ -32,7 +32,7 @@ The main goal of this project is creating a better framework for forks of paper 
   - [ ] Test mc-dev imports
   - [ ] Test library imports
 - [ ] Actually make changes to the game
-- [ ] Centralise constants
+- [ ] Centralise constants (1/2)
   - [x] Resource Token replacement
   - [ ] Source code Token replacement
   - [ ] Reenable repositories and pushes

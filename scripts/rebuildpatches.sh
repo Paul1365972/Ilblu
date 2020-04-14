@@ -64,6 +64,4 @@ function savePatches {
 
 savePatches ${FORK_NAME}-API patches/api
 savePatches ${FORK_NAME}-Server patches/server
-
-$basedir/scripts/push.sh
 ) || exit 1
