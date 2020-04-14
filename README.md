@@ -1,6 +1,6 @@
 # Ilblu
 
-[![Github-CI Build Status](https://github.com/Paul1365972/Ilblu/workflows/Build/badge.svg)](https://github.com/Paul1365972/Ilblu/actions?query=workflow%3A%22Build%22)
+[![GitHub-CI Workflow Status](https://img.shields.io/github/workflow/status/Paul1365972/Ilblu/Build/master?label=Github%20Build&logo=github)](https://github.com/Paul1365972/Ilblu/actions?query=workflow%3A%22Build%22)
 [![CodeMC-CI Build Status](https://ci.codemc.io/job/Paul1365972/job/Ilblu/badge/icon?subject=CodeMC%20Build)](https://ci.codemc.io/job/Paul1365972/job/Ilblu/)
 [![Paper Behind By](https://badgen.net/runkit/behind-paper-0pf96gidt2a1/Paul1365972/Ilblu?icon=git&cache=600)](https://github.com/PaperMC/Paper)
 
@@ -45,18 +45,37 @@ The main goal of this project is creating a better framework for forks of paper 
 
 ### Download
 
-[WIP]
+- [**Github Actions**](https://github.com/Paul1365972/Ilblu/actions?query=workflow%3A%22Build%22)
+- [**CodeMC Jenkins**](https://ci.codemc.io/job/Paul1365972/job/Ilblu/)
 
 ### Plugin API
 
-[WIP]
-
-Maven
+**Maven**
 ```xml
+<repository>
+    <id>codemc-snapshots</id>
+    <url>https://repo.codemc.io/repository/maven-snapshots/</url>
+</repository>
+
+<dependency>
+    <groupId>io.github.paul1365972</groupId>
+    <artifactId>ilblu-api</artifactId>
+    <version>1.15.2-R0.1-SNAPSHOT</version>
+    <scope>provided</scope>
+</dependency>
 ```
 
-Gradle
+**Gradle**
 ```groovy
+repositories {
+    maven {
+        url "https://repo.codemc.io/repository/maven-snapshots/"
+    }
+}
+
+dependencies {
+    compileOnly "io.github.paul1365972:ilblu-api:1.15.2-R0.1-SNAPSHOT"
+}
 ```
 
 This also includes the Paper-, Spigot- and Bukkit-API
@@ -76,6 +95,7 @@ If all you want is a paperclip server jar, just run:
 ```sh
 ./ilblu jar
 ```
+alternatively you can also use `./gradlew paperclip`
 
 ## Developing
 
@@ -109,7 +129,9 @@ To get a distributable server jar (paperclip) you again have two options
 
 ### Still confused?
 
-Creating and editing patches is explained in great detail over at [PaperMC](https://github.com/PaperMC/Paper/blob/master/CONTRIBUTING.md)
+Creating and editing patches is explained in great detail over at [PaperMC](https://github.com/PaperMC/Paper/blob/master/CONTRIBUTING.md).
+
+*Side note: Rebasing will be one of your best friends when creating patches, be sure to understand it.*
 
 ## LICENSE
 
