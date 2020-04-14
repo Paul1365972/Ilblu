@@ -1,6 +1,8 @@
 # Ilblu
 
-![Build Gradle](https://github.com/Paul1365972/Ilblu/workflows/Build%20Gradle/badge.svg)
+[![Github-CI Build Status](https://github.com/Paul1365972/Ilblu/workflows/Build/badge.svg)](https://github.com/Paul1365972/Ilblu/actions?query=workflow%3A%22Build%22)
+[![CodeMC-CI Build Status](https://ci.codemc.io/job/Paul1365972/job/Ilblu/badge/icon?subject=CodeMC%20Build)](https://ci.codemc.io/job/Paul1365972/job/Ilblu/)
+[![Paper Behind By](https://badgen.net/runkit/behind-paper-0pf96gidt2a1/Paul1365972/Ilblu?icon=git&cache=600)](https://github.com/PaperMC/Paper)
 
 Ilblu is a fork of the Minecraft Server Software [Paper](https://github.com/PaperMC/Paper), it should support all Spigot plugins.
 This project uses combined changes and small improvements from:
