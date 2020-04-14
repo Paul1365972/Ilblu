@@ -33,6 +33,13 @@ task paperUpstream(type: Exec, group: 'paper') {
     commandLine "$BASH_PATH", 'ilblu', 'upstream'
 }
 
+if ("true".equalsIgnoreCase(System.env.SETUP_ON_STARTUP)) {
+    println "Starting with SETUP_ON_STARTUP enabled"
+    exec {
+        commandLine "$BASH_PATH", 'ilblu', 'patch'
+    }
+}
+
 subprojects {
     apply plugin: 'java'
     apply plugin: 'maven-publish'
