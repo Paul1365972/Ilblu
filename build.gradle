@@ -9,34 +9,38 @@ plugins {
 group "$GROUP"
 version 'dev-SNAPSHOT'
 
-task paperPaperclip(type: Exec, group: 'paper') {
-    commandLine "$BASH_PATH", 'ilblu', 'jar'
+task paperInit(type: Exec, group: 'paper') {
+    commandLine "$BASH_PATH", 'ilblu', 'up'
 }
 
 task paperApplyPatches(type: Exec, group: 'paper') {
     commandLine "$BASH_PATH", 'ilblu', 'patch'
 }
 
-task paperApplyPatchesFast(type: Exec, group: 'paper') {
-    commandLine "$BASH_PATH", 'ilblu', 'patch', 'fast'
-}
-
 task paperBuild(type: Exec, group: 'paper') {
     commandLine "$BASH_PATH", 'ilblu', 'build'
+}
+
+task paperPaperclip(type: Exec, group: 'paper') {
+    commandLine "$BASH_PATH", 'ilblu', 'jar'
 }
 
 task paperRebuildPatches(type: Exec, group: 'paper') {
     commandLine "$BASH_PATH", 'ilblu', 'rebuild'
 }
 
-task paperUpstream(type: Exec, group: 'paper') {
-    commandLine "$BASH_PATH", 'ilblu', 'upstream'
+task paperGenerateMCDEVSRC(type: Exec, group: 'paper') {
+    commandLine "$BASH_PATH", 'ilblu', 'mcdev'
+}
+
+task paperMergeUp(type: Exec, group: 'paper') {
+    commandLine "$BASH_PATH", 'ilblu', 'mergeup'
 }
 
 if ("true".equalsIgnoreCase(System.env.SETUP_ON_STARTUP)) {
     println "Starting with SETUP_ON_STARTUP enabled"
     exec {
-        commandLine "$BASH_PATH", 'ilblu', 'patch'
+        commandLine "$BASH_PATH", 'ilblu', 'patch', 'init'
     }
 }
 

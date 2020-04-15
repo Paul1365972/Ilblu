@@ -20,42 +20,29 @@ function applyPatch {
 
     cd "$basedir/$what/"
     $gitcmd fetch --all
-    $gitcmd branch -f upstream "$branch" >/dev/null
+    $gitcmd branch -f upstream "$branch"
 
     cd "$basedir/"
     if [ ! -d  "$basedir/$target" ]; then
         mkdir "$basedir/$target"
         cd "$basedir/$target/"
         $gitcmd init
-        $gitcmd remote add origin "$5"
+        if [ -n "${5:-}" ]; then
+            $gitcmd remote add origin "$5"
+        fi
         cd "$basedir/"
     fi
     cd "$basedir/$target/"
 
     echo "Resetting $target to $what..."
-    $gitcmd remote rm upstream > /dev/null 2>&1
-    $gitcmd remote add upstream "$basedir/$what" >/dev/null 2>&1
-    $gitcmd checkout master 2>/dev/null || git checkout -b master
-    $gitcmd fetch upstream >/dev/null 2>&1
-    $gitcmd reset --hard upstream/upstream
+    $gitcmd remote rm upstream 2>/dev/null || true
+    $gitcmd remote add -f upstream "$basedir/$what"
+    $gitcmd checkout -B master upstream/upstream 2>&1
 
     echo "  Applying patches to $target..."
-
-    statusfile=".git/patch-apply-failed"
-    rm -f "$statusfile"
-    $gitcmd am --abort >/dev/null 2>&1
-
+    $gitcmd am --abort 2>/dev/null || true
     find "$basedir/patches/$patch_folder/"*.patch -print0 | xargs -0 $applycmd
-    if [ "$?" != "0" ]; then
-        echo 1 > "$statusfile"
-        echo "  Something did not apply cleanly to $target."
-        echo "  Please review above details and finish the apply then"
-        echo "  save the changes with rebuildPatches.sh"
-        exit 1
-    else
-        rm -f "$statusfile"
-        echo "  Patches applied cleanly to $target"
-    fi
+    echo "  Patches applied cleanly to $target"
 }
 
 "$basedir/scripts/importmcdev.sh" "$basedir"
@@ -64,17 +51,10 @@ function applyPatch {
     applyPatch Paper/Paper-API ${FORK_NAME}-API HEAD api &&
     applyPatch Paper/Paper-Server ${FORK_NAME}-Server HEAD server
 
-    # TODO this runs every time (and also twice)
     # if we have previously created mcdev, update it
-    # if [ -d "$basedir/mc-dev" ]; then
-    #     cd "$basedir/Paper/"
-    #     parentVer=$($gitcmd rev-parse --short HEAD)
-    #     cd "$basedir/Paper/Paper-Server/"
-    #     minecraftversion=$(cat "$basedir/Paper/work/BuildData/info.json" | grep minecraftVersion | cut -d '"' -f 4)
-    #     version=$(echo -e "Paper: $parentVer\nmc-dev:$importedmcdev")
-    #     tag="$minecraftversion-$mcVer-$(echo -e $version | sha1sum | awk '{print $1}')"
-    #     "$basedir/scripts/generatemcdevsrc.sh" "$basedir" "$tag"
-    # fi
+    if [ -d "$basedir/mc-dev" ]; then
+        "$basedir/scripts/generatemcdevsrc.sh" "$basedir"
+    fi
     echo "Patching finished"
 )
 )

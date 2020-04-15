@@ -31,13 +31,16 @@ failed=0
 case "$1" in
     "rb" | "rbp" | "rebuild")
     (
+        if [ "$2" == "init" ]; then
+            ./scripts/initupstream.sh "$basedir" || exit 1
+        fi
         ./scripts/rebuildpatches.sh "$basedir" || exit 1
     ) || failed=1
     ;;
     "p" | "patch" | "apply")
     (
-        if [ "$2" != "fast" ]; then
-          ./scripts/upstream.sh "$basedir" || exit 1
+        if [ "$2" == "init" ]; then
+            ./scripts/initupstream.sh "$basedir" || exit 1
         fi
         ./scripts/apply.sh "$basedir" || exit 1
     ) || failed=1
@@ -51,19 +54,32 @@ case "$1" in
     ;;
     "jar" | "paperclip")
     (
-       if [ "$2" != "fast" ]; then
-          ./scripts/upstream.sh "$basedir" || exit 1
-       fi
-       ./scripts/apply.sh "$basedir" || exit 1
-       mvn -N install || exit 1
-       (cd "$basedir/${FORK_NAME}-API" && mvn -e clean install) || exit 1
-       (cd "$basedir/${FORK_NAME}-Server" && mvn -e clean install) || exit 1
-       ./scripts/paperclip.sh "$basedir" || exit 1
+        if [ "$2" == "init" ]; then
+            ./scripts/initupstream.sh "$basedir" || exit 1
+        fi
+        ./scripts/apply.sh "$basedir" || exit 1
+        mvn -N install || exit 1
+        (cd "$basedir/${FORK_NAME}-API" && mvn -e clean install) || exit 1
+        (cd "$basedir/${FORK_NAME}-Server" && mvn -e clean install) || exit 1
+        ./scripts/paperclip.sh "$basedir" || exit 1
+    ) || failed=1
+    ;;
+    "mcdev" | "src" | "mcdevsrc")
+    (
+        if [ "$2" == "init" ]; then
+            ./scripts/initupstream.sh "$basedir" || exit 1
+        fi
+        ./scripts/generatemcdevsrc.sh "$basedir" || exit 1
     ) || failed=1
     ;;
     "up" | "upstream")
     (
-        ./scripts/upstream.sh "$basedir" "$2" || exit 1
+        ./scripts/initupstream.sh "$basedir" || exit 1
+    ) || failed=1
+    ;;
+    "mergeup" | "upstream")
+    (
+        ./scripts/mergeupstream.sh "$basedir" || exit 1
     ) || failed=1
     ;;
     *)

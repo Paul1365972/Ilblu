@@ -6,7 +6,7 @@
 (
 set -euo pipefail
 basedir="$(cd "$1" && pwd -P)"
-parentVer="$2"
+#TODO parentVer="$2"
 source "$basedir/scripts/functions.sh"
 gitcmd="git -c commit.gpgsign=false"
 
@@ -45,7 +45,7 @@ echo "Built mc-dev to be included in your project for src access";
 
 $gitcmd add --all
 $gitcmd commit --allow-empty -m "mc-dev"
-$gitcmd tag -a "$parentVer" -m "$parentVer" 2>/dev/null
+#$gitcmd tag -a "$parentVer" -m "$parentVer" 2>/dev/null
 
 echo "Finished generating mc-dev source"
 )

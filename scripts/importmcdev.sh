@@ -103,7 +103,7 @@ importLibrary com.mojang datafixerupper com/mojang/datafixers/util Either.java
 
 ################
 
-# TODO figure out what and why this is here
+# TODO figure out what this does
 (
     cd "$basedir/Paper/Paper-Server/"
     rm -rf nms-patches applyPatches.sh makePatches.sh

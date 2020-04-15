@@ -50,6 +50,8 @@ The main goal of this project is creating a better framework for forks of paper 
 
 ### Plugin API
 
+**[WIP]**
+
 **Maven**
 ```xml
 <repository>
@@ -93,13 +95,13 @@ This also includes the Paper-, Spigot- and Bukkit-API
 
 If all you want is a paperclip server jar, just run:
 ```sh
-./ilblu jar
+./ilblu jar init
 ```
-alternatively you can also use `./gradlew paperclip`
+alternatively you can also use `./gradlew paperInit paperPaperclip`
 
 ## Developing
 
-To get started clone this repository and run `./ilblu patch` or `./gradlew paperApplyPatches` to setup your workspace.
+To get started clone this repository and run `./ilblu patch init` or `./gradlew paperInit paperApplyPatches` to setup your workspace.
 
 ### Creating patches
 
@@ -131,7 +133,7 @@ To get a distributable server jar (paperclip) you again have two options
 
 Creating and editing patches is explained in great detail over at [PaperMC](https://github.com/PaperMC/Paper/blob/master/CONTRIBUTING.md).
 
-*Side note: Rebasing will be one of your best friends when creating patches, be sure to understand it.*
+*Side note: Rebasing will be one of your best friends when creating patches, be sure to understand it well.*
 
 ## LICENSE
 

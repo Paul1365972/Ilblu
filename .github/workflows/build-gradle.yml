@@ -42,9 +42,9 @@ jobs:
           key: ${{ runner.os }}-paper-${{ steps.paper-version.outputs.commit }}
       - name: Setup paper
         if: steps.cache-paper.outputs.cache-hit != 'true'
-        run: ./gradlew paperUpstream
+        run: ./gradlew paperInit
       - name: Setup workspace
-        run: ./gradlew paperApplyPatchesFast
+        run: ./gradlew paperApplyPatches
       - name: Build with Gradle
         id: build
         run: ./gradlew jar sourcesJar javadocJar shadowJar paperclip

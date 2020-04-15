@@ -22,8 +22,6 @@ vanillajar="$workdir/Minecraft/$mcver/$mcver.jar"
 cp "$workdir/Paperclip/assembly/target/paperclip-${mcver}.jar" "$basedir/${FORK_NAME,,}-paperclip.jar"
 
 echo ""
-echo ""
-echo ""
 echo "Build success!"
 echo "Copied final jar to $basedir/${FORK_NAME,,}-paperclip.jar"
 )
