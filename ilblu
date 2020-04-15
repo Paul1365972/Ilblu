@@ -25,19 +25,17 @@ SOURCE=$([[ "$SOURCE" = /* ]] && echo "$SOURCE" || echo "$PWD/${SOURCE#./}")
 basedir=$(dirname "$SOURCE")
 source "$basedir/scripts/functions.sh"
 
+cd "$basedir/"
+
 failed=0
 case "$1" in
     "rb" | "rbp" | "rebuild")
     (
-        set -e
-        cd "$basedir"
         ./scripts/rebuildpatches.sh "$basedir" || exit 1
     ) || failed=1
     ;;
     "p" | "patch" | "apply")
     (
-        set -e
-        cd "$basedir"
         if [ "$2" != "fast" ]; then
           ./scripts/upstream.sh "$basedir" || exit 1
         fi
@@ -46,31 +44,26 @@ case "$1" in
     ;;
     "b" | "bu" | "build")
     (
-        set -e
-        mvn -N install
-        cd "$basedir/${FORK_NAME}-API" && mvn -e clean install
-        cd "$basedir/${FORK_NAME}-Server" && mvn -e clean install
+        mvn -N install || exit 1
+        cd "$basedir/${FORK_NAME}-API" && mvn -e clean install || exit 1
+        cd "$basedir/${FORK_NAME}-Server" && mvn -e clean install || exit 1
     ) || failed=1
     ;;
     "jar" | "paperclip")
     (
-       set -e
-       cd "$basedir"
        if [ "$2" != "fast" ]; then
-          ./scripts/upstream.sh "$basedir"
+          ./scripts/upstream.sh "$basedir" || exit 1
        fi
-       ./scripts/apply.sh "$basedir"
-       mvn -N install
-       cd "$basedir/${FORK_NAME}-API" && mvn -e clean install
-       cd "$basedir/${FORK_NAME}-Server" && mvn -e clean install
-       cd "$basedir"
-       ./scripts/paperclip.sh "$basedir"
+       ./scripts/apply.sh "$basedir" || exit 1
+       mvn -N install || exit 1
+       (cd "$basedir/${FORK_NAME}-API" && mvn -e clean install) || exit 1
+       (cd "$basedir/${FORK_NAME}-Server" && mvn -e clean install) || exit 1
+       ./scripts/paperclip.sh "$basedir" || exit 1
     ) || failed=1
     ;;
     "up" | "upstream")
     (
-        cd "$basedir"
-        ./scripts/upstream.sh "$basedir" "$2"
+        ./scripts/upstream.sh "$basedir" "$2" || exit 1
     ) || failed=1
     ;;
     *)

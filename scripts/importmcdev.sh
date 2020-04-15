@@ -4,7 +4,7 @@
 # License from Paper applies to this file
 
 (
-set -e
+set -euo pipefail
 basedir="$(cd "$1" && pwd -P)"
 source "$basedir/scripts/functions.sh"
 nms="net/minecraft/server"
@@ -49,7 +49,7 @@ function importLibrary {
             exit 1
         fi
         export MODLOG="$MODLOG  Imported $file from $lib\n";
-        sed 's/\r$//' "$base" > "$target" || exit 1
+        sed 's/\r$//' "$base" > "$target"
     done
 }
 
@@ -61,22 +61,24 @@ function importLibrary {
     fi
 )
 
-files=$(cat "$basedir/patches/server/"* | grep "+++ b/src/main/java/net/minecraft/server/" | sort | uniq | sed 's/\+\+\+ b\/src\/main\/java\/net\/minecraft\/server\///g' | sed 's/.java//g')
-# Maybe "create mode " is correct here, probably not though
-nonnms=$(grep -R "new file mode" -B 1 "$basedir/patches/server/" | grep -v "new file mode" | grep -oE "net\/minecraft\/server\/.*.java" | grep -oE "[A-Za-z]+?.java$" --color=none | sed 's/.java//g')
+(
+    files=$(cat "$basedir/patches/server/"* | grep "+++ b/src/main/java/net/minecraft/server/" | sort | uniq | sed 's/\+\+\+ b\/src\/main\/java\/net\/minecraft\/server\///g' | sed 's/.java//g')
+    # Maybe "create mode " is correct here, probably not though
+    nonnms=$(grep -R "new file mode" -B 1 "$basedir/patches/server/" | grep -v "new file mode" | grep -oE "net\/minecraft\/server\/.*.java" | grep -oE "[A-Za-z]+?.java$" --color=none | sed 's/.java//g')
 
-for f in $files; do
-    containsElement "$f" ${nonnms[@]}
-    if [ "$?" == "1" ]; then
-        if [ ! -f "$basedir/Paper/Paper-Server/src/main/java/net/minecraft/server/$f.java" ]; then
-            if [ ! -f "$decompiledir/$nms/$f.java" ]; then
-                echo "$(bashColor 1 31) ERROR!!! Missing NMS$(bashColor 1 34) $f $(bashColorReset)";
-            else
-                import $f
+    for f in $files; do
+        containsElement "$f" ${nonnms[@]}
+        if [ "$?" == "1" ]; then
+            if [ ! -f "$basedir/Paper/Paper-Server/src/main/java/net/minecraft/server/$f.java" ]; then
+                if [ ! -f "$decompiledir/$nms/$f.java" ]; then
+                    echo "$(bashColor 1 31) ERROR!!! Missing NMS$(bashColor 1 34) $f $(bashColorReset)";
+                else
+                    import $f || exit 1
+                fi
             fi
         fi
-    fi
-done
+    done
+) || true
 
 ########################################################
 ########################################################
@@ -108,6 +110,6 @@ importLibrary com.mojang datafixerupper com/mojang/datafixers/util Either.java
     $gitcmd add src -A
     echo -e "$FORK_NAME-Extra mc-dev Imports\n\n$MODLOG" | $gitcmd commit src -F -
 )
-# This last echo is needed so the script doesn exit 1 and crash
+
 echo "Import mc-dev finished"
-) || exit 1
+)

@@ -4,7 +4,7 @@
 # License from Paper applies to this file
 
 (
-set -e
+set -euo pipefail
 basedir="$(cd "$1" && pwd -P)"
 source "$basedir/scripts/functions.sh"
 gitcmd="git -c commit.gpgsign=false"
@@ -58,7 +58,7 @@ function applyPatch {
     fi
 }
 
-"$basedir/scripts/importmcdev.sh" "$basedir" || exit 1
+"$basedir/scripts/importmcdev.sh" "$basedir"
 
 (
     applyPatch Paper/Paper-API ${FORK_NAME}-API HEAD api &&
@@ -76,8 +76,5 @@ function applyPatch {
     #     "$basedir/scripts/generatemcdevsrc.sh" "$basedir" "$tag"
     # fi
     echo "Patching finished"
-) || (
-    echo "Failed to apply patches"
-    exit 1
-) || exit 1
-) || exit 1
+)
+)

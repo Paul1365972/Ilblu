@@ -4,7 +4,7 @@
 # License from Paper applies to this file
 
 (
-set -e
+set -euo pipefail
 basedir="$(cd "$1" && pwd -P)"
 source "$basedir/scripts/functions.sh"
 gitcmd="git -c commit.gpgsign=false -c core.safecrlf=false"
@@ -64,4 +64,6 @@ function savePatches {
 
 savePatches ${FORK_NAME}-API patches/api
 savePatches ${FORK_NAME}-Server patches/server
-) || exit 1
+
+echo "Rebuild complete"
+)

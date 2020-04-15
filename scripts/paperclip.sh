@@ -4,7 +4,7 @@
 # License from Paper applies to this file
 
 (
-set -e
+set -euo pipefail
 basedir="$(cd "$1" && pwd -P)"
 source "$basedir/scripts/functions.sh"
 
@@ -25,5 +25,5 @@ echo ""
 echo ""
 echo ""
 echo "Build success!"
-echo "Copied final jar to $(cd "$basedir/" && pwd -P)/${FORK_NAME,,}-paperclip.jar"
-) || exit 1
+echo "Copied final jar to $basedir/${FORK_NAME,,}-paperclip.jar"
+)

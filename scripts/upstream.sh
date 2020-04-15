@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 (
-set -e
+set -euo pipefail
 basedir="$(cd "$1" && pwd -P)"
 source "$basedir/scripts/functions.sh"
 gitcmd="git -c commit.gpgsign=false"
@@ -11,7 +11,7 @@ echo "Updating upstream..."
 cd "$basedir/"
 git submodule update --init --recursive
 
-if [[ "$2" == up* ]]; then
+if [[ "${2:-}" == up* ]]; then
     (
         cd "$basedir/Paper/"
         git fetch && git reset --hard origin/master
@@ -34,7 +34,7 @@ source "$basedir/scripts/importmcdev.sh"
 
 minecraftversion=$(cat "$basedir/$WORK_PATH/BuildData/info.json" | grep minecraftVersion | cut -d '"' -f 4)
 version=$(echo -e "Paper: $parentVer\nmc-dev:$importedmcdev")
-tag="$minecraftversion-$mcVer-$(echo -e $version | sha1sum | awk '{print $1}')"
+tag="$minecraftversion-$mcVer-$(echo $version | sha1sum | awk '{print $1}')"
 # echo "$tag" > "$basedir"/current-paper
 # Pass via argument, current-paper not needed anymore
 "$basedir/scripts/generatemcdevsrc.sh" "$basedir" "$tag"
@@ -44,12 +44,17 @@ cd "$basedir/Paper/"
 function tag {
 (
     cd "$1"
-    echo -e "$(date)\n\n$version" | git tag -a "$tag" -F - 2>/dev/null
+    echo "Tagging as $tag and version $version"
+    # echo -e "$(date)\n\n$version" | git tag -a "$tag" -F - 2>/dev/null
+    git tag -f -a "$tag" -m "$(date)" -m "" -m "$version"
 )
 }
 echo "Tagging as $tag"
-echo -e "$version"
+echo "Version:"
+echo "$version"
 
 tag Paper-API
 tag Paper-Server
-) || exit 1
+
+echo "Finished upstream"
+)
