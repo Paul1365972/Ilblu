@@ -44,8 +44,8 @@ function applyPatch {
     statusfile=".git/patch-apply-failed"
     rm -f "$statusfile"
     $gitcmd am --abort >/dev/null 2>&1
-    # TODO Optimise (currently we could also use git apply)
-    find "$basedir/patches/$patch_folder/" -name "*.patch" -exec $applycmd {} \;
+
+    find "$basedir/patches/$patch_folder/"*.patch -print0 | xargs -0 $applycmd
     if [ "$?" != "0" ]; then
         echo 1 > "$statusfile"
         echo "  Something did not apply cleanly to $target."
