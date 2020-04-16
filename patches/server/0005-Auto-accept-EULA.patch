@@ -18,10 +18,10 @@ index cf00f35a5b7c2d2f6b6989e0855de8b882dcef50..99ae9bfb4b512cd65065c7e90b3c22e2
                      throwable = throwable1;
                      throw throwable1;
 diff --git a/src/main/java/net/minecraft/server/MinecraftServer.java b/src/main/java/net/minecraft/server/MinecraftServer.java
-index 239dc40aaf4fe0919db2e82c8005449d33eb46ec..1b1c643a586307de0005f4a4f4e352bf6346555b 100644
+index 4f90e55fbec0b3ce9655e08a2ef55df5e5d36d8c..e2a61685237d71f554ff2858d3d57b7c380143fe 100644
 --- a/src/main/java/net/minecraft/server/MinecraftServer.java
 +++ b/src/main/java/net/minecraft/server/MinecraftServer.java
-@@ -1370,6 +1370,7 @@ public abstract class MinecraftServer extends IAsyncTaskHandlerReentrant<TickTas
+@@ -1374,6 +1374,7 @@ public abstract class MinecraftServer extends IAsyncTaskHandlerReentrant<TickTas
                  System.err.println( "If you do not agree to the above EULA please stop your server and remove this flag immediately." );
              }
              // Spigot End
