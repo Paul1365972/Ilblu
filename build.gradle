@@ -17,14 +17,6 @@ task paperApplyPatches(type: Exec, group: 'paper') {
     commandLine "$BASH_PATH", 'ilblu', 'patch'
 }
 
-task paperBuild(type: Exec, group: 'paper') {
-    commandLine "$BASH_PATH", 'ilblu', 'build'
-}
-
-task paperPaperclip(type: Exec, group: 'paper') {
-    commandLine "$BASH_PATH", 'ilblu', 'jar'
-}
-
 task paperRebuildPatches(type: Exec, group: 'paper') {
     commandLine "$BASH_PATH", 'ilblu', 'rebuild'
 }
@@ -37,7 +29,7 @@ task paperMergeUp(type: Exec, group: 'paper') {
     commandLine "$BASH_PATH", 'ilblu', 'mergeup'
 }
 
-if ("true".equalsIgnoreCase(System.env.SETUP_ON_STARTUP)) {
+if ("true".equalsIgnoreCase(System.env.INIT_ON_STARTUP)) {
     println "Starting with SETUP_ON_STARTUP enabled"
     exec {
         commandLine "$BASH_PATH", 'ilblu', 'patch', 'init'
@@ -57,6 +49,26 @@ subprojects {
                 artifactId = project.name.toLowerCase()
             }
         }
+    }
+
+    task processJava(type: Copy) {
+        doFirst {
+            delete destinationDir
+        }
+        from project.sourceSets.main.java
+        into "$buildDir/generated/main/java"
+
+        filter ReplaceTokens, tokens: [
+                GROUP: GROUP,
+                FORK_NAME: FORK_NAME,
+                FORK_NAME_: FORK_NAME.toLowerCase(),
+                GITHUB: GITHUB,
+                BRANCH: BRANCH,
+        ]
+    }
+
+    compileJava {
+        source = tasks.processJava
     }
 
     processResources {

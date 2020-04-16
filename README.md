@@ -26,8 +26,8 @@ The main goal of this project is creating a better framework for forks of paper 
 - [x] Improve README for newer users
 - [ ] Switch from Maven to Gradle (1/2)
   - [x] Get rid of ugly build.gradle hack (2/2)
-  - [ ] Create gradle task chain
-  - [ ] Only include important imports (1/2)
+  - [ ] Create gradle task chain (1/2)
+  - [x] Only include important imports (2/2)
 - [ ] Further improve scripts
   - [x] Make scripts space safe
   - [x] Rewrite all scripts
@@ -35,10 +35,10 @@ The main goal of this project is creating a better framework for forks of paper 
   - [ ] Test mc-dev imports
   - [ ] Test library imports
 - [ ] Actually make changes to the game
-- [ ] Centralise constants (1/2)
+- [x] Centralise constants (2/2)
   - [x] Resource Token replacement
-  - [ ] Source code Token replacement
-  - [ ] Reenable repositories and pushes
+  - [x] Source code Token replacement
+- [ ] Reenable repositories and pushes
 - [ ] Make as easily forkable as possible
   - [ ] Multi forking support
 
@@ -47,7 +47,7 @@ The main goal of this project is creating a better framework for forks of paper 
 ### Download
 
 - [**Github Actions**](https://github.com/Paul1365972/Ilblu/actions?query=workflow%3A%22Build%22)
-- [**CodeMC Jenkins**](https://ci.codemc.io/job/Paul1365972/job/Ilblu/)
+- [**CodeMC Jenkins**](https://ci.codemc.io/job/Paul1365972/job/Ilblu/lastSuccessfulBuild)
 
 ### Plugin API
 
@@ -96,9 +96,8 @@ This also includes the Paper-, Spigot- and Bukkit-API
 
 If all you want is a paperclip server jar, just run:
 ```sh
-./ilblu jar init
+`./gradlew paperInit paperApply paperclip`
 ```
-alternatively you can also use `./gradlew paperInit paperPaperclip`
 
 ## Developing
 
@@ -114,21 +113,11 @@ To get started clone this repository and run `./ilblu patch init` or `./gradlew 
 
 **Important: Test jars contain copyrighted material and should be distributed under no circumstances**
 
-You have two options for building your test server jar
-
-**Gradle (recommended):** Run `./gradlew shadowJar`, output in Ilblu-Server/build/libs
-
-**Bash:** Run `./ilblu build` (or `./gradlew paperBuild`), output in Ilblu-Server/target
+To build your test server jar just run `./gradlew shadowJar`, output in Ilblu-Server/build/libs
 
 ### Deploying
 
-To get a distributable server jar (paperclip) you again have two options
-
-**Gradle (recommended):** Run `./gradlew paperclip`
-
-**Bash:** Run `./ilblu jar` (or `./gradlew paperPaperclip`)
-
-*Important for Bash: Commit any changes and rebuild your patches before deploying or they will be lost forever*
+To get a distributable server jar (paperclip), just run `./gradlew paperclip`, output in main directory
 
 ### Still confused?
 
