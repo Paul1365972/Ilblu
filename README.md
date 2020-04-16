@@ -143,4 +143,4 @@ Everything in this repository is free to be used in your own fork, except when n
 
 See list above for the license of material used/modified by this project.
 
-**By using this project you accept the [Mojang EULA](https://account.mojang.com/documents/minecraft_eula)! Using this project requires that you have read and accepted the EULA because of [this patch](https://github.com/Paul1365972/Ilblu/blob/master/patches/server/0004-Auto-accept-EULA.patch)!**
+**By using this project you accept the [Mojang EULA](https://account.mojang.com/documents/minecraft_eula)! Using this project requires that you have read and accepted the EULA because of [this patch](https://github.com/Paul1365972/Ilblu/blob/master/patches/server/0005-Auto-accept-EULA.patch)!**
