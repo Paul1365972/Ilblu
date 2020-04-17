@@ -127,7 +127,7 @@ Creating and editing patches is explained in great detail over at [PaperMC](http
 
 ## LICENSE
 
-See [LICENSE](LICENSE.md)
+See [LICENSE](LICENSE)
 
 Everything in this repository is free to be used in your own fork, except when noted otherwise. 
 
