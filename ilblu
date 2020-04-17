@@ -45,7 +45,7 @@ case "$1" in
         ./scripts/apply.sh "$basedir" || exit 1
     ) || failed=1
     ;;
-    "mcdev" | "src" | "mcdevsrc")
+    "mcdev" | "mcdevsrc")
     (
         if [ "$2" == "init" ]; then
             ./scripts/initupstream.sh "$basedir" || exit 1
@@ -53,27 +53,25 @@ case "$1" in
         ./scripts/generatemcdevsrc.sh "$basedir" || exit 1
     ) || failed=1
     ;;
-    "up" | "upstream")
+    "init")
     (
         ./scripts/initupstream.sh "$basedir" || exit 1
     ) || failed=1
     ;;
-    "mergeup" | "upstream")
+    "mergeup")
     (
         ./scripts/mergeupstream.sh "$basedir" || exit 1
     ) || failed=1
     ;;
     *)
-        echo "Ilblu build tool command. This provides a variety of commands to build and manage the PaperMC build"
-        echo "environment. For all of the functionality of this command to be available, you must first run the"
-        echo "'setup' command. View below for details. For essential building and patching, you do not need to do the setup."
+        echo "Ilblu build tool command. This provides a variety of commands to build and manage the PaperMC build environment."
         echo ""
-        echo " Normal commands:"
-        echo "  * rb, rebuild  | Rebuild patches, can be called from anywhere."
-        echo "  * p, patch     | Apply all patches to top of Paper without building it. Can be run from anywhere."
-        echo "  * up, upstream | Build Paper upstream, pass arg up to update paper. Can be run from anywhere."
-        echo "  * b, build    | Build API and Server but no deploy. Can be ran anywhere."
-        echo "  * d, deploy    | Build and Deploy API jar and build Server. Can be ran anywhere."
+        echo " Commands:"
+        echo "  * init              | Initialize Paper. Can be run from anywhere."
+        echo "  * rb, rebuild       | Rebuild patches, can be called from anywhere."
+        echo "  * p, patch, apply   | Apply all patches to top of Paper without building it. Can be run from anywhere."
+        echo "  * mcdev, mcdevsrc   | Creates folder for mc src access. Can be run from anywhere."
+        echo "  * mergeup           | Merge upstream and rebuild patches. Can be ran anywhere."
     ;;
 esac
 

@@ -10,7 +10,7 @@ group "$GROUP"
 version 'dev-SNAPSHOT'
 
 task paperInit(type: Exec, group: 'paper') {
-    commandLine "$BASH_PATH", 'ilblu', 'up'
+    commandLine "$BASH_PATH", 'ilblu', 'init'
 }
 
 task paperApplyPatches(type: Exec, group: 'paper') {
