@@ -22,7 +22,7 @@ index 67fb370cad6924895a6b27052dbd5c1767e3f0c9..d5f2dd3718cccc51d8e5dae1d72d0b8b
  
 diff --git a/build.gradle b/build.gradle
 new file mode 100644
-index 0000000000000000000000000000000000000000..91cb25b1090cf2762a633dd337f377a261370e6d
+index 0000000000000000000000000000000000000000..8387ddfeef4f7183b341be84dfcd1db9c46d115e
 --- /dev/null
 +++ b/build.gradle
 @@ -0,0 +1,122 @@
@@ -37,8 +37,8 @@ index 0000000000000000000000000000000000000000..91cb25b1090cf2762a633dd337f377a2
 +group "$GROUP"
 +version "$VERSION"
 +
-+ext.minecraftversion = "$MINECRAFT_VERSION"
-+ext.minecraft_version = "$BUKKIT_VERSION"
++ext.minecraftversion = "$MINECRAFTVERSION"
++ext.minecraft_version = "$MINECRAFT_VERSION"
 +ext.buildtagprefix = 'git-Bukkit-'
 +ext.buildtagsuffix = ''
 +ext.apiversion = 'unknown'
