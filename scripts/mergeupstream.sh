@@ -11,8 +11,7 @@ echo "Update parent..."
 oldhash=$(cd "$basedir/Paper/" && $gitcmd rev-parse HEAD)
 
 cd "$basedir/"
-$gitcmd pull --recurse-submodules
-$gitcmd submodule update --remote --recursive
+$gitcmd submodule update --remote --recursive --force
 
 newhash=$(cd "$basedir/Paper/" && $gitcmd rev-parse HEAD)
 

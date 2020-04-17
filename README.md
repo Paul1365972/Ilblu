@@ -1,9 +1,9 @@
 # Ilblu
 
 [![GitHub-CI Workflow Status](https://badgen.net/github/checks/Paul1365972/Ilblu?label=Github%20Build&icon=github)](https://github.com/Paul1365972/Ilblu/actions?query=workflow%3A%22Build%22)
-[![CodeMC-CI Build Status](https://badgen.net/runkit/jenkins-status-vbryjbp7mcuc/ci.codemc.io%2Fjob%2FPaul1365972%2Fjob%2FIlblu?label=CodeMC%20Build&icon=https%3A%2F%2Fsvgshare.com%2Fi%2FK8A.svg&cache=900)](https://ci.codemc.io/job/Paul1365972/job/Ilblu/lastBuild/)
+[![CodeMC-CI Build Status](https://badgen.net/runkit/jenkins-status-vbryjbp7mcuc/ci.codemc.io%2Fjob%2FPaul1365972%2Fjob%2FIlblu?label=CodeMC%20Build&icon=https%3A%2F%2Fsvgshare.com%2Fi%2FK8A.svg&cache=900)](https://ci.codemc.io/job/Paul1365972/job/Ilblu/)
 [![Paper Behind By](https://badgen.net/runkit/behind-paper-0pf96gidt2a1/Paul1365972/Ilblu?icon=git&cache=1800)](https://github.com/PaperMC/Paper)
-[![Forks](https://badgen.net/github/forks/Paul1365972/Ilblu?label=Forks&cache=3600)](https://github.com/Paul1365972/Ilblu/network/members)
+[![Forks](https://badgen.net/github/forks/Paul1365972/Ilblu?label=Forks&icon=https%3A%2F%2Fsvgshare.com%2Fi%2FKC7.svg&cache=3600)](https://github.com/Paul1365972/Ilblu/network/members)
 
 Ilblu is a fork of the Minecraft Server Software [Paper](https://github.com/PaperMC/Paper), it should support all Spigot plugins.
 
@@ -65,7 +65,7 @@ This also includes the Paper-, Spigot- and Bukkit-API
 
 If all you want is a paperclip server jar, just run:
 ```sh
-`./gradlew paperInit paperApply paperclip`
+./gradlew paperInit paperApply paperclip
 ```
 
 ## Fork
