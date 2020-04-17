@@ -6,41 +6,10 @@
 [![Forks](https://badgen.net/github/forks/Paul1365972/Ilblu?label=Forks&cache=3600)](https://github.com/Paul1365972/Ilblu/network/members)
 
 Ilblu is a fork of the Minecraft Server Software [Paper](https://github.com/PaperMC/Paper), it should support all Spigot plugins.
-This project uses combined changes and small improvements from:
-- [Paper](https://github.com/PaperMC/Paper)*
-- [byof](https://github.com/electronicboy/byof)
-- [EMC](https://github.com/starlis/empirecraft)
-- [Tuinity](https://github.com/Spottedleaf/Tuinity)
-- [Purpur](https://github.com/pl3xgaming/Purpur)
-- [YAPFA](https://github.com/tr7zw/YAPFA)
-- [Draco](https://github.com/Draycia/Draco)
-- [Akarin](https://github.com/Akarin-project/Akarin)
 
-*Projects whose patches were copied are marked with an Asterisk*
+This project improves on the framework by [byof](https://github.com/electronicboy/byof) and [EMC](https://github.com/starlis/empirecraft). Also includes many small changes from [Tuinity](https://github.com/Spottedleaf/Tuinity), [Purpur](https://github.com/pl3xgaming/Purpur), [YAPFA](https://github.com/tr7zw/YAPFA), [Draco](https://github.com/Draycia/Draco) and [Akarin](https://github.com/Akarin-project/Akarin).
 
-The main goal of this project is creating a better framework for forks of paper and in turn also their forks
-
-## TODO
-
-- [x] Actions/Workflow Integration
-- [x] Improve README for newer users
-- [ ] Switch from Maven to Gradle (1/2)
-  - [x] Get rid of ugly build.gradle hack (2/2)
-  - [ ] Create gradle task chain (1/2)
-  - [x] Only include important imports (2/2)
-- [ ] Further improve scripts
-  - [x] Make scripts space safe
-  - [x] Rewrite all scripts
-  - [x] Make more paper like (2/2)
-  - [ ] Test mc-dev imports
-  - [ ] Test library imports
-- [ ] Actually make changes to the game
-- [x] Centralise constants (2/2)
-  - [x] Resource Token replacement
-  - [x] Source code Token replacement
-- [ ] Reenable repositories and pushes
-- [ ] Make as easily forkable as possible
-  - [ ] Multi forking support
+The main goal of this project is creating a better framework for forks of paper and in turn also their forks!
 
 ## Get Ilblu
 
@@ -99,25 +68,47 @@ If all you want is a paperclip server jar, just run:
 `./gradlew paperInit paperApply paperclip`
 ```
 
+## Fork
+
+Creating a fork via Ilblu has several advantages:
+- More modern framework for developing than older solutions (E.g byof)
+- Modular inclusion of other forks
+- Incremental building
+
+### Getting started
+
+1. Fork this project
+2. Edit `gradle.properties` to your likings
+3. Add your fork name to the end of `/patches/apply`
+4. Run ```./gradlew paperInit paperApplyPatches paperRebuildPatches```
+5. (Edit the README.md)
+
+### Add foreign patches
+
+Create a new folder in `/patches` containing the api and server subdirectories
+
+Now add the relative path to the patches folder above your fork in `/patches/apply`
+
+
 ## Developing
 
-To get started clone this repository and run `./ilblu patch init` or `./gradlew paperInit paperApplyPatches` to setup your workspace.
+To get started clone this repository and run `./gradlew paperInit paperApplyPatches` or `./ilblu patch init` to setup your workspace.
 
 ### Creating patches
 
-- Make changes to Ilblu-API or Ilblu-Server and commit them
-- Run `./ilblu rebuild` or `./gradlew paperRebuildPatches` to create the patch files
+- Make changes to `/<NAME>-API` or `/<NAME>-Server` and commit them
+- Run `./gradlew paperRebuildPatches` or `./ilblu rebuild`  to create the patch files
 - Finish by committing and pushing the changes made to the patch files
 
 ### Testing
 
 **Important: Test jars contain copyrighted material and should be distributed under no circumstances**
 
-To build your test server jar just run `./gradlew shadowJar`, output in Ilblu-Server/build/libs
+To build your test server jar just run ```./gradlew shadowJar```, output in `/<NAME>-Server/build/libs`
 
 ### Deploying
 
-To get a distributable server jar (paperclip), just run `./gradlew paperclip`, output in main directory
+To get a distributable server jar (paperclip), just run ```./gradlew paperclip```, output in main directory
 
 ### Still confused?
 

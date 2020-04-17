@@ -13,8 +13,9 @@ echo "Rebuilding patch files from current fork state..."
 
 function savePatches {
     target=$1
-    patchdir=$2
+    patch_folder=$2
     echo "Formatting patches for $target..."
+    mkdir -p "$basedir/$patch_folder"
 
     if [ -d "$basedir/$target/.git/rebase-apply" ]; then
         # in middle of a rebase, be smarter
@@ -29,19 +30,19 @@ function savePatches {
             fi
         done
     else
-        find "$basedir/$patchdir" -name "*.patch" -type f -delete
+        find "$basedir/$patch_folder" -name "*.patch" -type f -delete
     fi
 
     cd "$basedir/$target/"
 
-    $gitcmd format-patch --no-signature --zero-commit --full-index --no-stat -N -o "$basedir/$patchdir" upstream/upstream
+    $gitcmd format-patch --no-signature --zero-commit --full-index --no-stat -N -o "$basedir/$patch_folder" upstream/upstream
     cd "$basedir/"
-    $gitcmd add -A "$basedir/$patchdir"
-    echo "  Patches saved for $target to $patchdir"
+    $gitcmd add -A "$basedir/$patch_folder"
+    echo "  Patches saved for $target to $patch_folder"
 }
 
-savePatches ${FORK_NAME}-API patches/api
-savePatches ${FORK_NAME}-Server patches/server
+savePatches ${FORK_NAME}-API "patches/$FORK_NAME/api"
+savePatches ${FORK_NAME}-Server "patches/$FORK_NAME/server"
 
 echo "Rebuild complete"
 )
