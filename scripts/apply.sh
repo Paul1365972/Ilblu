@@ -21,7 +21,7 @@ function applyPatch {
 
     cd "$basedir/$target/"
     $gitcmd am --abort 2>/dev/null || true
-    find "$basedir/patches/$patches_folder/"*.patch -print0 | xargs -0 $applycmd
+    find "$basedir/patches/$patches_folder/" -name "*.patch" -print0 | xargs -0 $applycmd
 }
 
 function apply() {
