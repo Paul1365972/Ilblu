@@ -65,7 +65,7 @@ case "$1" in
     ;;
     "sync" | "syncfork")
     (
-        ./scripts/mergeupstream.sh "$basedir" || exit 1
+        ./scripts/syncfork.sh "$basedir" || exit 1
     ) || failed=1
     ;;
     *)
