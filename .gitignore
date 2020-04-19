@@ -1,8 +1,8 @@
 # Ilblu
-Ilblu-Server/
-Ilblu-API/
-mc-dev/
-testserver/
+/*-Server/
+/*-API/
+/mc-dev/
+/testserver/
 
 # Compiled class file
 *.class
@@ -22,7 +22,6 @@ testserver/
 # Gradle
 .gradle/
 build/
-!gradle/wrapper/gradle-wrapper.jar
 
 # Maven
 target/
