@@ -66,8 +66,13 @@ Now add the relative path to the patches folder above your fork in `/patches/app
 
 ### Keep in sync
 
-Since Ilblu is patched frequently to stay up to date with [Paper](https://github.com/PaperMC/Paper), keeping your fork in sync is important to get any new features as soon as they come out.
-Not sure how? [GitHub Help - Syncing a Fork](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/syncing-a-fork)
+Since Ilblu is patched frequently to stay up to date with [Paper](https://github.com/PaperMC/Paper), keeping your fork in sync is important to get any new features as soon as they come out. Choose any way you prefer:
+
+- Sync Ilblu (Recommended): `./gradlew paperSync`
+
+- Only update Paper: `./gradlew paperMergeUp`
+
+- Do it by manually. Not sure how? [GitHub Help - Syncing a Fork](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/syncing-a-fork)
 
 ## Developing
 

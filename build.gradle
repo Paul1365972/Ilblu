@@ -29,6 +29,10 @@ task paperMergeUp(type: Exec, group: 'paper') {
     commandLine "$BASH_PATH", 'ilblu', 'mergeup'
 }
 
+task paperSync(type: Exec, group: 'paper') {
+    commandLine "$BASH_PATH", 'ilblu', 'sync'
+}
+
 if ("true".equalsIgnoreCase(System.env.INIT_ON_STARTUP)) {
     println "Starting with SETUP_ON_STARTUP enabled"
     exec {
