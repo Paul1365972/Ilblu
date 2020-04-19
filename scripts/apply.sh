@@ -12,9 +12,22 @@ applycmd="$gitcmd am --3way --ignore-whitespace"
 
 echo "Rebuilding Forked projects..."
 
-function setUpstream() {
+function applyPatch {
     source=$1
     target=$2
+    patches_folder=$3
+
+    echo "    Applying patches from $patches_folder..."
+
+    cd "$basedir/$target/"
+    $gitcmd am --abort 2>/dev/null || true
+    find "$basedir/patches/$patches_folder/"*.patch -print0 | xargs -0 $applycmd
+}
+
+function apply() {
+    source=$1
+    target=$2
+    type=$3
 
     cd "$basedir/$source/"
     $gitcmd fetch --all
@@ -22,27 +35,10 @@ function setUpstream() {
 
     cd "$basedir/$target/"
     echo "Resetting $target to $source..."
+    $gitcmd tag | xargs $gitcmd tag -d
     $gitcmd remote rm upstream 2>/dev/null || true
     $gitcmd remote add -f upstream "$basedir/$source"
     $gitcmd checkout -B master upstream/upstream 2>&1
-}
-
-function applyPatch {
-    source=$1
-    target=$2
-    patch_folder=$3
-
-    echo "    Applying patches from $patch_folder..."
-
-    cd "$basedir/$target/"
-    $gitcmd am --abort 2>/dev/null || true
-    find "$basedir/patches/$patch_folder/"*.patch -print0 | xargs -0 $applycmd
-}
-
-function apply() {
-    source=$1
-    target=$2
-    type=$3
 
     cd "$basedir/"
     if [ ! -d  "$basedir/$target" ]; then
@@ -57,13 +53,16 @@ function apply() {
 
     echo "  Applying patches to $target..."
 
+    index=1
     while IFS='' read -r folder; do
         folder=$(echo -e "$folder" | sed -e 's/[\r\n]//g')
-        if [ -n "$folder" ] && [ -d "$basedir/patches/$folder" ]; then
-            if [ "${folder,,}" = "${FORK_NAME,,}" ]; then
-                setUpstream "$source" "$target"
+        if [ -n "$folder" ] && [[ "$folder" != "#"* ]]; then
+            if [ -d "$basedir/patches/$folder/" ]; then
+                applyPatch "$source" "$target" "$folder/$type"
             fi
-            applyPatch "$source" "$target" "$folder/$type"
+            cd "$basedir/$target"
+            $gitcmd tag "$(printf "%02d" $index)-$folder"
+            ((index++))
         fi
     done < "$basedir/patches/apply"
     echo "  Patches applied cleanly to $target"

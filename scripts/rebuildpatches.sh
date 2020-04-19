@@ -14,8 +14,24 @@ echo "Rebuilding patch files from current fork state..."
 function savePatches {
     target=$1
     patch_folder=$2
-    echo "Formatting patches for $target..."
+    from=$3
+    to=$4
+
+    cd "$basedir/$target/"
     mkdir -p "$basedir/$patch_folder"
+    find "$basedir/$patch_folder" -name "*.patch" -type f -delete
+
+    $gitcmd format-patch --no-signature --zero-commit --full-index --no-stat -N -o "$basedir/$patch_folder" "$from...$to"
+    cd "$basedir/"
+    $gitcmd add -A "$basedir/$patch_folder"
+    echo "  Patches saved for $target to $patch_folder"
+}
+
+function save() {
+    target=$1
+    patches_folder=$2
+    type=$3
+    echo "Formatting patches for $target..."
 
     if [ -d "$basedir/$target/.git/rebase-apply" ]; then
         # in middle of a rebase, be smarter
@@ -29,20 +45,19 @@ function savePatches {
                 rm $(echo "$orderedfiles{@}" | sed -n "${i}p")
             fi
         done
-    else
-        find "$basedir/$patch_folder" -name "*.patch" -type f -delete
     fi
 
-    cd "$basedir/$target/"
-
-    $gitcmd format-patch --no-signature --zero-commit --full-index --no-stat -N -o "$basedir/$patch_folder" upstream/upstream
-    cd "$basedir/"
-    $gitcmd add -A "$basedir/$patch_folder"
-    echo "  Patches saved for $target to $patch_folder"
+    cd "$basedir/$target"
+    from="upstream/upstream"
+    for to in $(git tag --sort refname); do
+        echo "Formatting from $from to $to"
+        savePatches "$target" "$patches_folder/$(cut -d "-" -f2 <<< "$to")/$type" "$from" "$to"
+        from="$to"
+    done
 }
 
-savePatches ${FORK_NAME}-API "patches/$FORK_NAME/api"
-savePatches ${FORK_NAME}-Server "patches/$FORK_NAME/server"
+save "${FORK_NAME}-API" patches api
+save "${FORK_NAME}-Server" patches server
 
 echo "Rebuild complete"
 )
