@@ -33,16 +33,9 @@ function apply() {
     $gitcmd fetch --all
     $gitcmd branch -f upstream
 
-    cd "$basedir/$target/"
-    echo "Resetting $target to $source..."
-    $gitcmd tag | xargs $gitcmd tag -d
-    $gitcmd remote rm upstream 2>/dev/null || true
-    $gitcmd remote add -f upstream "$basedir/$source"
-    $gitcmd checkout -B master upstream/upstream 2>&1
-
     cd "$basedir/"
-    if [ ! -d  "$basedir/$target" ]; then
-        mkdir "$basedir/$target"
+    if [ ! -d  "$basedir/$target/" ]; then
+        mkdir "$basedir/$target/"
         cd "$basedir/$target/"
         $gitcmd init
         if [ -n "${5:-}" ]; then
@@ -50,6 +43,13 @@ function apply() {
         fi
         cd "$basedir/"
     fi
+
+    cd "$basedir/$target/"
+    echo "Resetting $target to $source..."
+    $gitcmd tag | xargs $gitcmd tag -d
+    $gitcmd remote rm upstream 2>/dev/null || true
+    $gitcmd remote add -f upstream "$basedir/$source"
+    $gitcmd checkout -B master upstream/upstream 2>&1
 
     echo "  Applying patches to $target..."
 
