@@ -51,7 +51,7 @@ function save() {
     from="upstream/upstream"
     for to in $(git tag --sort refname); do
         echo "Formatting from $from to $to"
-        savePatches "$target" "$patches_folder/$(cut -d "-" -f2 <<< "$to")/$type" "$from" "$to"
+        savePatches "$target" "$patches_folder/$(cut -d "-" -f2- <<< "$to")/$type" "$from" "$to"
         from="$to"
     done
 }
