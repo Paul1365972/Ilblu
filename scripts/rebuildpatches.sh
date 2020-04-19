@@ -29,8 +29,7 @@ function savePatches {
 
 function save() {
     target=$1
-    patches_folder=$2
-    type=$3
+    type=$2
     echo "Formatting patches for $target..."
 
     if [ -d "$basedir/$target/.git/rebase-apply" ]; then
@@ -48,16 +47,21 @@ function save() {
     fi
 
     cd "$basedir/$target"
+    tags=$($gitcmd tag --sort refname)
+    echo "Set top level tag to HEAD"
+    $gitcmd tag -f "${tags##*$'\n'}"
+
     from="upstream/upstream"
-    for to in $(git tag --sort refname); do
+    for to in $tags; do
         echo "Formatting from $from to $to"
-        savePatches "$target" "$patches_folder/$(cut -d "-" -f2- <<< "$to")/$type" "$from" "$to"
+        name=$(cut -d "-" -f2- <<< "$to")
+        savePatches "$target" "patches/$name/$type" "$from" "$to"
         from="$to"
     done
 }
 
-save "${FORK_NAME}-API" patches api
-save "${FORK_NAME}-Server" patches server
+save "${FORK_NAME}-API" api
+save "${FORK_NAME}-Server" server
 
 echo "Rebuild complete"
 )
