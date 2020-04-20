@@ -58,11 +58,13 @@ Creating a fork via Ilblu has several advantages:
 4. Run ```./gradlew paperInit paperApplyPatches paperRebuildPatches```
 5. (Edit the README.md)
 
-### Add foreign patches
+### Add patch modules
 
-Create a new folder in `/patches` containing the api and server subdirectories
+Create a new folder/symlink in `/patches` containing the api and server subdirectories
 
-Now add the relative path to the patches folder above your fork in `/patches/apply`
+Now add the name of the path to the patches folder above your fork in `/patches/apply`.
+
+*Only use valid folder names; no dots, slashes, asterisks etc.*
 
 ### Keep in sync
 
