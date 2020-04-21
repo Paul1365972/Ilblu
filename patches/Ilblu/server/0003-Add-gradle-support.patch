@@ -22,10 +22,10 @@ index 67fb370cad6924895a6b27052dbd5c1767e3f0c9..d5f2dd3718cccc51d8e5dae1d72d0b8b
  
 diff --git a/build.gradle b/build.gradle
 new file mode 100644
-index 0000000000000000000000000000000000000000..8387ddfeef4f7183b341be84dfcd1db9c46d115e
+index 0000000000000000000000000000000000000000..fa1fc26e895b19eb6439bfa7f75019dec92ebe77
 --- /dev/null
 +++ b/build.gradle
-@@ -0,0 +1,122 @@
+@@ -0,0 +1,125 @@
 +import com.github.jengelman.gradle.plugins.shadow.transformers.Log4j2PluginsCacheFileTransformer
 +
 +plugins {
@@ -68,6 +68,9 @@ index 0000000000000000000000000000000000000000..8387ddfeef4f7183b341be84dfcd1db9
 +    dependsOn tasks.shadowJar, parent.tasks.parseBuildData
 +    goals 'clean', 'package'
 +    workingDir "../$WORK_PATH/Paperclip/"
++    options {
++        batchMode true
++    }
 +    doFirst {
 +        def mcver = parent.tasks.parseBuildData.mcver
 +        define([
