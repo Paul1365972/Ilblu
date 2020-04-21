@@ -17,20 +17,6 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: ${{ matrix.java }}
-      - uses: actions/cache@v1
-        name: Cache maven
-        with:
-          path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-maven-
-      - uses: actions/cache@v1
-        name: Cache gradle
-        with:
-          path: ~/.gradle/caches
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*gradle*') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-
       - name: Fetch paper commit
         id: paper-version
         run: echo "::set-output name=commit::$(git rev-parse @:./Paper)"
@@ -45,6 +31,20 @@ jobs:
         run: ./gradlew paperInit
       - name: Setup workspace
         run: ./gradlew paperApplyPatches
+      - uses: actions/cache@v1
+        name: Cache gradle
+        with:
+          path: ~/.gradle/caches
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*gradle*') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+      - uses: actions/cache@v1
+        name: Cache maven
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
       - name: Build with Gradle
         id: build
         run: ./gradlew jar sourcesJar javadocJar shadowJar paperclip
