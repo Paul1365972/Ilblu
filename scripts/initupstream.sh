@@ -9,7 +9,7 @@ gitcmd="git -c commit.gpgsign=false"
 echo "Loading upstream..."
 
 cd "$basedir/"
-$gitcmd submodule update --init --recursive --remote
+$gitcmd submodule update --init --remote --no-fetch --recursive
 
 echo "Patching parent"
 cd "$basedir/Paper/"
