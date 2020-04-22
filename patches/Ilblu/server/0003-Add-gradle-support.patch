@@ -22,16 +22,15 @@ index 67fb370cad6924895a6b27052dbd5c1767e3f0c9..d5f2dd3718cccc51d8e5dae1d72d0b8b
  
 diff --git a/build.gradle b/build.gradle
 new file mode 100644
-index 0000000000000000000000000000000000000000..fa1fc26e895b19eb6439bfa7f75019dec92ebe77
+index 0000000000000000000000000000000000000000..3f55217aea791b1ab7d8e858749b73bf5aeab2a9
 --- /dev/null
 +++ b/build.gradle
-@@ -0,0 +1,125 @@
+@@ -0,0 +1,104 @@
 +import com.github.jengelman.gradle.plugins.shadow.transformers.Log4j2PluginsCacheFileTransformer
 +
 +plugins {
 +    id 'java'
 +    id 'com.github.johnrengelman.shadow'
-+    id 'com.github.dkorotych.gradle-maven-exec'
 +}
 +
 +group "$GROUP"
@@ -64,30 +63,10 @@ index 0000000000000000000000000000000000000000..fa1fc26e895b19eb6439bfa7f75019de
 +    }
 +}
 +
-+task paperclip(type: MavenExec, group: 'build') {
-+    dependsOn tasks.shadowJar, parent.tasks.parseBuildData
-+    goals 'clean', 'package'
-+    workingDir "../$WORK_PATH/Paperclip/"
-+    options {
-+        batchMode true
-+    }
-+    doFirst {
-+        def mcver = parent.tasks.parseBuildData.mcver
-+        define([
-+                'mcver': mcver,
-+                'paperjar': tasks.shadowJar.outputs.files.singleFile.path,
-+                'vanillajar': file("../$WORK_PATH/Minecraft/$mcver/${mcver}.jar").path,
-+        ])
-+    }
-+    doLast {
-+        def mcver = parent.tasks.parseBuildData.mcver
-+        copy {
-+            from "../$WORK_PATH/Paperclip/assembly/target/paperclip-${mcver}.jar"
-+            into "../"
-+            rename { "${FORK_NAME.toLowerCase()}-paperclip.jar" }
-+        }
-+        println "Copied final paperclip jar"
-+    }
++task paperclip(type: Exec, group: 'build') {
++    dependsOn tasks.shadowJar
++    commandLine "$BASH_PATH", 'ilblu', 'paperclip'
++    workingDir parent.file(".")
 +}
 +
 +jar {

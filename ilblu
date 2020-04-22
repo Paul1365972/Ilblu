@@ -70,6 +70,11 @@ case "$1" in
         ./scripts/syncfork.sh "$basedir" || exit 1
     ) || failed=1
     ;;
+    "paperclip" | "jar")
+    (
+        ./scripts/paperclip.sh "$basedir" || exit 1
+    ) || failed=1
+    ;;
     *)
         echo "Ilblu build tool command. This provides a variety of commands to build and manage the PaperMC build environment."
         echo ""
@@ -80,6 +85,7 @@ case "$1" in
         echo "  * mcdev, mcdevsrc   | Creates folder for mc src access. Can be run from anywhere."
         echo "  * mergeup           | Merge upstream paper and rebuild patches. Can be ran anywhere."
         echo "  * sync, syncfork    | Sync upstream ilblu and rebuild patches. Can be ran anywhere."
+        echo "  * paperclip, jar    | Creates the distributable paperclip jar. Can be ran anywhere."
     ;;
 esac
 

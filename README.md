@@ -32,9 +32,13 @@ The main goal of this project is creating a better framework for forks of paper 
 #### Requirements
 
 - Java (JDK) 8 or above
-- Maven
 - Git, with a configured user name and email. 
   On windows you need to run from git bash.
+
+**Optionally**
+
+- Maven 3+ (Will be installed locally if not present)
+- Gradle 6+ (Uses gradle wrapper anyway)
 
 #### Compile
 
