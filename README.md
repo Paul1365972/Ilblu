@@ -40,7 +40,7 @@ The main goal of this project is creating a better framework for forks of paper 
 
 If all you want is a paperclip server jar, just run:
 ```sh
-./gradlew paperInit paperApply paperclip
+./gradlew paperInitApply paperclip
 ```
 
 ## Fork
@@ -55,7 +55,7 @@ Creating a fork via Ilblu has several advantages:
 1. Fork this project
 2. Edit `gradle.properties` to your likings
 3. Add your fork name to the end of `/patches/apply`
-4. Run ```./gradlew paperInit paperApplyPatches paperRebuildPatches```
+4. Run ```./gradlew paperInitApply paperRebuildPatches```
 5. (Edit the README.md)
 
 ### Add patch modules
@@ -78,7 +78,7 @@ Since Ilblu is patched frequently to stay up to date with [Paper](https://github
 
 ## Developing
 
-To get started clone this repository and run `./gradlew paperInit paperApplyPatches` or `./ilblu patch init` to setup your workspace.
+To get started clone this repository and run `./gradlew paperInitApply` or `./ilblu patch init` to setup your workspace.
 
 ### Creating patches
 

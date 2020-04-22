@@ -17,6 +17,10 @@ task paperApplyPatches(type: Exec, group: 'paper') {
     commandLine "$BASH_PATH", 'ilblu', 'patch'
 }
 
+task paperInitApply(type: Exec, group: 'paper') {
+    commandLine "$BASH_PATH", 'ilblu', 'apply', 'init'
+}
+
 task paperRebuildPatches(type: Exec, group: 'paper') {
     commandLine "$BASH_PATH", 'ilblu', 'rebuild'
 }
