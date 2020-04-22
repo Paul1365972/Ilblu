@@ -25,6 +25,8 @@ SOURCE=$([[ "$SOURCE" = /* ]] && echo "$SOURCE" || echo "$PWD/${SOURCE#./}")
 basedir=$(dirname "$SOURCE")
 source "$basedir/scripts/functions.sh"
 
+source "$basedir/scripts/includemvn.sh"
+
 cd "$basedir/"
 
 failed=0
