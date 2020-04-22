@@ -26,5 +26,9 @@ fi
 "$basedir/scripts/apply.sh" "$basedir"
 "$basedir/scripts/rebuildpatches.sh" "$basedir"
 
+changelog=$(cd "$basedir/Paper/" && $gitcmd log $oldhash...$newhash --pretty="%h %s")
+$gitcmd add -A
+$gitcmd commit --amend -m "Merge remote-tracking branch 'upstream/master'" -m "From $oldhash to $newhash" -m "$(echo -e "Ilblu changes:\n$changelog")"
+
 echo "Finished sync"
 )
