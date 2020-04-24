@@ -28,9 +28,9 @@ jobs:
           key: ${{ runner.os }}-paper-${{ steps.paper-version.outputs.commit }}
       - name: Setup paper
         if: steps.cache-paper.outputs.cache-hit != 'true'
-        run: ./gradlew paperInit
+        run: ./gradlew ilbluInit
       - name: Setup workspace
-        run: ./gradlew paperApplyPatches
+        run: ./gradlew ilbluApplyPatches
       - uses: actions/cache@v1
         name: Cache gradle
         with:
@@ -47,7 +47,7 @@ jobs:
             ${{ runner.os }}-maven-
       - name: Build with Gradle
         id: build
-        run: ./gradlew jar sourcesJar javadocJar shadowJar paperclip
+        run: ./gradlew jar sourcesJar javadocJar shadowJar ilbluPaperclip
       - name: Upload API Artifact
         uses: actions/upload-artifact@v1
         with:

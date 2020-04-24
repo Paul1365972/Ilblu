@@ -9,31 +9,31 @@ plugins {
 group "$GROUP"
 version 'dev-SNAPSHOT'
 
-task paperInit(type: Exec, group: 'paper') {
+task ilbluInit(type: Exec, group: 'ilblu') {
     commandLine "$BASH_PATH", 'ilblu', 'init'
 }
 
-task paperApplyPatches(type: Exec, group: 'paper') {
+task ilbluApplyPatches(type: Exec, group: 'ilblu') {
     commandLine "$BASH_PATH", 'ilblu', 'patch'
 }
 
-task paperInitApply(type: Exec, group: 'paper') {
+task ilbluInitApply(type: Exec, group: 'ilblu') {
     commandLine "$BASH_PATH", 'ilblu', 'apply', 'init'
 }
 
-task paperRebuildPatches(type: Exec, group: 'paper') {
+task ilbluRebuildPatches(type: Exec, group: 'ilblu') {
     commandLine "$BASH_PATH", 'ilblu', 'rebuild'
 }
 
-task paperGenerateMCDEVSRC(type: Exec, group: 'paper') {
+task ilbluGenerateMCDEVSRC(type: Exec, group: 'ilblu') {
     commandLine "$BASH_PATH", 'ilblu', 'mcdev'
 }
 
-task paperMergeUp(type: Exec, group: 'paper') {
+task ilbluMergeUp(type: Exec, group: 'ilblu') {
     commandLine "$BASH_PATH", 'ilblu', 'mergeup'
 }
 
-task paperSync(type: Exec, group: 'paper') {
+task ilbluSync(type: Exec, group: 'ilblu') {
     commandLine "$BASH_PATH", 'ilblu', 'sync'
 }
 
@@ -112,7 +112,7 @@ task parseBuildData() {
 }
 
 task gitDescribeFork(type: Exec) {
-    commandLine "$GIT_PATH", 'rev-parse', '--short', '--always', 'HEAD'
+    commandLine "$BASH_PATH", '-c', 'git rev-parse --short --always HEAD'
     standardOutput = new ByteArrayOutputStream()
     ext.output = { return standardOutput.toString().replaceAll("\\s", "") }
 }
