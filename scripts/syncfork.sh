@@ -13,7 +13,7 @@ oldhash=$($gitcmd rev-parse HEAD)
 $gitcmd remote add upstream https://github.com/Paul1365972/Ilblu.git || true
 $gitcmd fetch upstream
 $gitcmd checkout master
-$gitcmd merge upstream/master
+$gitcmd merge upstream/master --no-ff
 $gitcmd submodule update --init --recursive
 newhash=$($gitcmd rev-parse HEAD)
 
@@ -26,7 +26,7 @@ fi
 "$basedir/scripts/apply.sh" "$basedir"
 "$basedir/scripts/rebuildpatches.sh" "$basedir"
 
-changelog=$(cd "$basedir/Paper/" && $gitcmd log $oldhash...$newhash --pretty="%h %s")
+changelog=$(cd "$basedir/" && $gitcmd log $oldhash...$newhash --pretty="%h %s")
 $gitcmd add -A
 $gitcmd commit --amend -m "Merge remote-tracking branch 'upstream/master'" -m "From $oldhash to $newhash" -m "$(echo -e "Ilblu changes:\n$changelog")"
 
