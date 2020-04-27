@@ -1,14 +1,13 @@
 #!/usr/bin/env bash
 
 # Import Config from gradle.properties
-while IFS="=" read key value
-  do
+while IFS="=" read key value; do
     key=$(echo $key | tr .-/ _)
     value=$(echo $value | tr -d "\r")
     if [ -n "$key" ] && [[ "$key" != "#"* ]]; then
         declare "$key=$value"
     fi
-  done < "$basedir/gradle.properties"
+done < "$basedir/gradle.properties"
 
 function bashColor {
 if [ $2 ]; then

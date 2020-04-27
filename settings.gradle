@@ -2,8 +2,10 @@ rootProject.name = "$FORK_NAME-Parent"
 
 include("$FORK_NAME-API", "$FORK_NAME-Server")
 
-//project(":$FORK_NAME-API").buildFileName = "../build.gradle"
-//project(":$FORK_NAME-Server").buildFileName = "../build.gradle"
-
 project(":$FORK_NAME-API").name = "$FORK_NAME-API"
 project(":$FORK_NAME-Server").name = "$FORK_NAME"
+
+include("Paper-MojangAPI")
+project(":Paper-MojangAPI").name = "Paper-MojangAPI"
+project(":Paper-MojangAPI").projectDir = file("Paper/Paper-MojangAPI")
+project(":Paper-MojangAPI").buildFileName = "../../gradle/mojangapi.gradle"

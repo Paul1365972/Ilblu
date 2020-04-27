@@ -22,10 +22,10 @@ index 67fb370cad6924895a6b27052dbd5c1767e3f0c9..d5f2dd3718cccc51d8e5dae1d72d0b8b
  
 diff --git a/build.gradle b/build.gradle
 new file mode 100644
-index 0000000000000000000000000000000000000000..8fcc81e5bddd030d04c3c9db80cf896df73cf7d9
+index 0000000000000000000000000000000000000000..27f8633daf64547bab30093a95490e08b1ee44cd
 --- /dev/null
 +++ b/build.gradle
-@@ -0,0 +1,104 @@
+@@ -0,0 +1,105 @@
 +import com.github.jengelman.gradle.plugins.shadow.transformers.Log4j2PluginsCacheFileTransformer
 +
 +plugins {
@@ -110,6 +110,7 @@ index 0000000000000000000000000000000000000000..8fcc81e5bddd030d04c3c9db80cf896d
 +
 +dependencies {
 +    implementation project(path: ":$FORK_NAME-API", configuration: 'shadow')
++    implementation project(path: ":Paper-MojangAPI", configuration: 'shadow')
 +    implementation "org.spigotmc:minecraft-server:$minecraftversion-SNAPSHOT"
 +    implementation "net.minecrell:terminalconsoleappender:1.2.0"
 +    runtimeOnly "org.jline:jline-terminal-jansi:3.12.1"

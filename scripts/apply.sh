@@ -71,7 +71,7 @@ function apply() {
 "$basedir/scripts/importmcdev.sh" "$basedir"
 
 (
-    apply Paper/Paper-API ${FORK_NAME}-API api &&
+    apply Paper/Paper-API ${FORK_NAME}-API api
     apply Paper/Paper-Server ${FORK_NAME}-Server server
 
     # if we have previously created mcdev, update it

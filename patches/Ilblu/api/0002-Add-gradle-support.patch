@@ -22,10 +22,10 @@ index e431e3435737e28394d81b56568a08b3c3148b9b..5c19022b09c42feb5592cc551262f799
  
 diff --git a/build.gradle b/build.gradle
 new file mode 100644
-index 0000000000000000000000000000000000000000..e0d5f23c63ef2b970c12a195a88ca34f0379722f
+index 0000000000000000000000000000000000000000..c3df3003c918003a4342217e07b25049ea0d4c7e
 --- /dev/null
 +++ b/build.gradle
-@@ -0,0 +1,67 @@
+@@ -0,0 +1,74 @@
 +plugins {
 +    id 'java'
 +    id 'maven-publish'
@@ -46,8 +46,15 @@ index 0000000000000000000000000000000000000000..e0d5f23c63ef2b970c12a195a88ca34f
 +    }
 +}
 +
++jar {
++    manifest {
++        attributes("Automatic-Module-Name": "org.bukkit")
++    }
++}
++
 +shadowJar {
 +    exclude 'module-info.class'
++    manifest.inheritFrom jar.manifest
 +}
 +
 +publishing {

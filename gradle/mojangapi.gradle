@@ -1,0 +1,68 @@
+plugins {
+    id 'java'
+    id 'maven-publish'
+    id 'com.github.johnrengelman.shadow'
+}
+
+group "$GROUP"
+version "$VERSION"
+
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
+javadoc {
+    options {
+        addStringOption('Xdoclint:none', '-quiet')
+    }
+}
+
+jar {
+    manifest {
+        attributes("Automatic-Module-Name": "org.bukkit")
+    }
+}
+
+shadowJar {
+    manifest.inheritFrom jar.manifest
+    exclude 'module-info.class'
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from components.java
+            artifact shadowJar
+        }
+    }
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        name 'spigotmc-public'
+        url 'https://hub.spigotmc.org/nexus/content/groups/public/'
+    }
+    maven {
+        name 'sonatype'
+        url 'https://oss.sonatype.org/content/groups/public/'
+    }
+    maven {
+        name 'minecraft-libraries'
+        url 'https://libraries.minecraft.net'
+    }
+}
+
+dependencies {
+    compileOnly project(path: ":$FORK_NAME-API", configuration: 'shadow')
+    compileOnly "com.mojang:brigadier:1.0.17"
+    compileOnly "it.unimi.dsi:fastutil:8.2.2"
+
+    compileOnly "org.jetbrains:annotations:18.0.0"
+    testCompileOnly "org.jetbrains:annotations:18.0.0"
+
+    testImplementation "junit:junit:4.13"
+    testImplementation "org.hamcrest:hamcrest-library:1.3"
+    testImplementation "org.ow2.asm:asm-tree:7.3.1"
+}
