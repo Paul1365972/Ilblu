@@ -22,7 +22,7 @@ index 67fb370cad6924895a6b27052dbd5c1767e3f0c9..d5f2dd3718cccc51d8e5dae1d72d0b8b
  
 diff --git a/build.gradle b/build.gradle
 new file mode 100644
-index 0000000000000000000000000000000000000000..27f8633daf64547bab30093a95490e08b1ee44cd
+index 0000000000000000000000000000000000000000..1dd826d5eb86bb8db0ef6969fe98677791f48c03
 --- /dev/null
 +++ b/build.gradle
 @@ -0,0 +1,105 @@
@@ -51,7 +51,7 @@ index 0000000000000000000000000000000000000000..27f8633daf64547bab30093a95490e08
 +                    "Main-Class": "org.bukkit.craftbukkit.Main",
 +                    "Implementation-Title": "CraftBukkit",
 +                    "Implementation-Version": "${versionprefix}${parent.tasks.gitDescribeFork.output()}",
-+                    "Implementation-Vendor": "${new Date().format('yyyyMMdd-HHmm')}",
++                    "Implementation-Vendor": "${new Date().format("yyyy-MM-dd'T'HH:mm:ss'Z'")}",
 +                    "Specification-Title": "Bukkit",
 +                    "Specification-Version": "${apiversion}",
 +                    "Specification-Vendor": "Bukkit Team",
