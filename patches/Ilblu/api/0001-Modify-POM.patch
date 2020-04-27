@@ -5,7 +5,7 @@ Subject: [PATCH] Modify POM
 
 
 diff --git a/pom.xml b/pom.xml
-index 2cb9714084c8a7aa1b20d445edd5be4cc206672f..1581f9f5e1a4304c893f0da2fccfe94e91e6d208 100644
+index 0629e1aa983ed75f434671b91268594fcf7b488a..5115e21a8f4fc2ef41f95cf585df97c13f7f518b 100644
 --- a/pom.xml
 +++ b/pom.xml
 @@ -1,20 +1,20 @@
@@ -36,7 +36,7 @@ index 2cb9714084c8a7aa1b20d445edd5be4cc206672f..1581f9f5e1a4304c893f0da2fccfe94e
      <description>An enhanced plugin API for Minecraft servers.</description>
  
      <properties>
-@@ -155,6 +155,9 @@
+@@ -168,6 +168,9 @@
                  <groupId>org.apache.maven.plugins</groupId>
                  <artifactId>maven-compiler-plugin</artifactId>
                  <version>3.8.1</version>

@@ -168,10 +168,10 @@ index f0a0c76141d79c8572e02f909ec3ad167be63e61..1b9572fdc148c90cc0972f3237293490
  
      public CrashReport b(CrashReport crashreport) {
 diff --git a/src/main/java/org/bukkit/craftbukkit/CraftServer.java b/src/main/java/org/bukkit/craftbukkit/CraftServer.java
-index f8b786c256e0b6091622f427dca25b5fa30f9df5..7b566fc67acbb4c86b972e8878c3cc9c45c486b7 100644
+index 28728c794f2c66343daf578787a6ae866a99c412..471bdab741f4419010d87429d78d12ceff0e58b8 100644
 --- a/src/main/java/org/bukkit/craftbukkit/CraftServer.java
 +++ b/src/main/java/org/bukkit/craftbukkit/CraftServer.java
-@@ -203,7 +203,7 @@ import javax.annotation.Nullable; // Paper
+@@ -204,7 +204,7 @@ import javax.annotation.Nullable; // Paper
  import javax.annotation.Nonnull; // Paper
  
  public final class CraftServer implements Server {
@@ -180,7 +180,7 @@ index f8b786c256e0b6091622f427dca25b5fa30f9df5..7b566fc67acbb4c86b972e8878c3cc9c
      private final String serverVersion;
      private final String bukkitVersion = Versioning.getBukkitVersion();
      private final Logger logger = Logger.getLogger("Minecraft");
-@@ -806,7 +806,7 @@ public final class CraftServer implements Server {
+@@ -807,7 +807,7 @@ public final class CraftServer implements Server {
  
          org.spigotmc.SpigotConfig.init((File) console.options.valueOf("spigot-settings")); // Spigot
          com.destroystokyo.paper.PaperConfig.init((File) console.options.valueOf("paper-settings")); // Paper
@@ -190,7 +190,7 @@ index f8b786c256e0b6091622f427dca25b5fa30f9df5..7b566fc67acbb4c86b972e8878c3cc9c
              world.worldData.setDifficulty(config.difficulty);
              world.setSpawnFlags(config.spawnMonsters, config.spawnAnimals);
 diff --git a/src/main/java/org/bukkit/craftbukkit/Main.java b/src/main/java/org/bukkit/craftbukkit/Main.java
-index 5198a0c28a3e58a9488466c7605378b52ba81888..d59b4ac0f7aa10ff32f672a0f0df4fb7d517d29d 100644
+index 80b532a799b4602ac58a694a6a1b24146ab6d036..6cd13de67486df08e9362be47e36d8fa696f37d7 100644
 --- a/src/main/java/org/bukkit/craftbukkit/Main.java
 +++ b/src/main/java/org/bukkit/craftbukkit/Main.java
 @@ -147,10 +147,10 @@ public class Main {
