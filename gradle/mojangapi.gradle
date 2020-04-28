@@ -56,7 +56,7 @@ repositories {
 
 dependencies {
     compileOnly project(path: ":$FORK_NAME-API", configuration: 'shadow')
-    compileOnly "com.mojang:brigadier:1.0.17"
+    implementation "com.mojang:brigadier:1.0.17"
     compileOnly "it.unimi.dsi:fastutil:8.2.2"
 
     compileOnly "org.jetbrains:annotations:18.0.0"
