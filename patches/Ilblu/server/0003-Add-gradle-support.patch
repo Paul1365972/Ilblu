@@ -22,7 +22,7 @@ index 67fb370cad6924895a6b27052dbd5c1767e3f0c9..d5f2dd3718cccc51d8e5dae1d72d0b8b
  
 diff --git a/build.gradle b/build.gradle
 new file mode 100644
-index 0000000000000000000000000000000000000000..1dd826d5eb86bb8db0ef6969fe98677791f48c03
+index 0000000000000000000000000000000000000000..147f9740c52c523c374a306c0bbddf660b05759f
 --- /dev/null
 +++ b/build.gradle
 @@ -0,0 +1,105 @@
@@ -118,7 +118,7 @@ index 0000000000000000000000000000000000000000..1dd826d5eb86bb8db0ef6969fe986777
 +    runtimeOnly "org.apache.logging.log4j:log4j-slf4j-impl:2.8.1"
 +    implementation "org.apache.logging.log4j:log4j-iostreams:2.8.1"
 +    runtimeOnly "com.lmax:disruptor:3.4.2"
-+    implementation "org.ow2.asm:asm:7.3.1"
++    implementation "org.ow2.asm:asm:8.0.1"
 +    implementation("com.googlecode.json-simple:json-simple:1.1.1") {
 +        exclude group: 'junit', module: 'junit'
 +    }
