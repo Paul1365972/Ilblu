@@ -19,10 +19,10 @@ index 93d5a3f97a1b2b3a1cd2731d48e8ebd01d29aa91..e194cac603461ece3337a5c773106f94
  
          new TimingsExport(listeners, parent, history).start();
 diff --git a/src/main/java/org/bukkit/Server.java b/src/main/java/org/bukkit/Server.java
-index 9ceaac0e859e347b07fa9f4c6507a73deb280670..f853805e2f3a7321d32a84cf562284ad80970e4e 100644
+index c3fb1c27187b5283e2fd5c2b894bbc889a48544d..fe342363b2a50b0a2896d5effcc07d6c6b2ecaef 100644
 --- a/src/main/java/org/bukkit/Server.java
 +++ b/src/main/java/org/bukkit/Server.java
-@@ -1386,6 +1386,13 @@ public interface Server extends PluginMessageRecipient {
+@@ -1396,6 +1396,13 @@ public interface Server extends PluginMessageRecipient {
          }
          // Paper end
  
