@@ -419,10 +419,10 @@ index 5e8c0c906a326b940958f807bbc3ac8fbde2e2b1..928b3b66784fadea9e02845d7387a92e
          public void restart() {
              org.spigotmc.RestartCommand.restart();
 diff --git a/src/main/java/org/bukkit/craftbukkit/Main.java b/src/main/java/org/bukkit/craftbukkit/Main.java
-index 093dbeae2784d51dae74f66e3e1ce5bf6a370428..80b532a799b4602ac58a694a6a1b24146ab6d036 100644
+index 93340e9470b23f2d8c91338e63e95c6465e69c3c..136a01eea4f40f3515feee5f7adf986cbb133981 100644
 --- a/src/main/java/org/bukkit/craftbukkit/Main.java
 +++ b/src/main/java/org/bukkit/craftbukkit/Main.java
-@@ -145,6 +145,14 @@ public class Main {
+@@ -146,6 +146,14 @@ public class Main {
                          .defaultsTo("Unknown Server")
                          .describedAs("Name");
                  // Paper end

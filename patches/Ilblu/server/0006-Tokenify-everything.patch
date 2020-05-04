@@ -190,10 +190,10 @@ index 928b3b66784fadea9e02845d7387a92ecaa0668a..e9b88421f846592aaafd099dafa30042
              world.worldData.setDifficulty(config.difficulty);
              world.setSpawnFlags(config.spawnMonsters, config.spawnAnimals);
 diff --git a/src/main/java/org/bukkit/craftbukkit/Main.java b/src/main/java/org/bukkit/craftbukkit/Main.java
-index 80b532a799b4602ac58a694a6a1b24146ab6d036..6cd13de67486df08e9362be47e36d8fa696f37d7 100644
+index 136a01eea4f40f3515feee5f7adf986cbb133981..dc99707b4782c3684b22de7994a8f8b10a6d043c 100644
 --- a/src/main/java/org/bukkit/craftbukkit/Main.java
 +++ b/src/main/java/org/bukkit/craftbukkit/Main.java
-@@ -147,10 +147,10 @@ public class Main {
+@@ -148,10 +148,10 @@ public class Main {
                  // Paper end
  
                  // Ilblu Start
