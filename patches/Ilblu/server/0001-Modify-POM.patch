@@ -5,7 +5,7 @@ Subject: [PATCH] Modify POM
 
 
 diff --git a/pom.xml b/pom.xml
-index bc8438ae1ae939be4d2257d37df9a843a13ac301..840ee2d7fbe1a1c0ec034741b9b4c842c3fef46d 100644
+index 0c0051f7f2a58d63b851e80b442acbb47ca75dfa..8cf096b755b6eea42443ed095cbd98f7e27cfb56 100644
 --- a/pom.xml
 +++ b/pom.xml
 @@ -1,11 +1,20 @@
@@ -72,7 +72,7 @@ index bc8438ae1ae939be4d2257d37df9a843a13ac301..840ee2d7fbe1a1c0ec034741b9b4c842
              <version>${project.version}</version>
              <scope>compile</scope>
          </dependency>
-@@ -124,29 +146,9 @@
+@@ -131,29 +153,9 @@
          </dependency>
      </dependencies>
  
@@ -103,7 +103,7 @@ index bc8438ae1ae939be4d2257d37df9a843a13ac301..840ee2d7fbe1a1c0ec034741b9b4c842
          <defaultGoal>clean install</defaultGoal> <!-- Paper -->
          <plugins>
              <plugin>
-@@ -154,7 +156,7 @@
+@@ -161,7 +163,7 @@
                  <artifactId>gitdescribe-maven-plugin</artifactId>
                  <version>1.3</version>
                  <configuration>
@@ -112,7 +112,7 @@ index bc8438ae1ae939be4d2257d37df9a843a13ac301..840ee2d7fbe1a1c0ec034741b9b4c842
                      <scmDirectory>..</scmDirectory>
                  </configuration>
                  <executions>
-@@ -298,6 +300,9 @@
+@@ -305,6 +307,9 @@
                  <groupId>org.apache.maven.plugins</groupId>
                  <artifactId>maven-compiler-plugin</artifactId>
                  <version>3.8.1</version>
