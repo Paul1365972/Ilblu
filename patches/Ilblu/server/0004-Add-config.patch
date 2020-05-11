@@ -376,7 +376,7 @@ index 0e6368d0fb3beccb492ae3867fb4e22825f928a2..858493359c04d5eb80285dd0760bea4f
          this.generator = gen;
          this.world = new CraftWorld((WorldServer) this, gen, env);
 diff --git a/src/main/java/org/bukkit/craftbukkit/CraftServer.java b/src/main/java/org/bukkit/craftbukkit/CraftServer.java
-index 35efc50efca6ba5423b362fd9957a7d6d9f73a31..8730d31bf95b9f8dbe574a9359d48881f9b317d3 100644
+index 4371592fbffce969d731fd8171277abaf550e881..968017d89d39f29cdd935b7f35c6b5b772282218 100644
 --- a/src/main/java/org/bukkit/craftbukkit/CraftServer.java
 +++ b/src/main/java/org/bukkit/craftbukkit/CraftServer.java
 @@ -815,6 +815,7 @@ public final class CraftServer implements Server {
@@ -403,7 +403,7 @@ index 35efc50efca6ba5423b362fd9957a7d6d9f73a31..8730d31bf95b9f8dbe574a9359d48881
          overrideAllCommandBlockCommands = commandsConfiguration.getStringList("command-block-overrides").contains("*");
          ignoreVanillaPermissions = commandsConfiguration.getBoolean("ignore-vanilla-permissions");
  
-@@ -2105,6 +2108,14 @@ public final class CraftServer implements Server {
+@@ -2134,6 +2137,14 @@ public final class CraftServer implements Server {
              return com.destroystokyo.paper.PaperConfig.config;
          }
  
