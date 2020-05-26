@@ -355,7 +355,7 @@ index b07c49f1b48cc6dedd7c2057da0ec4f6f6d446e6..cd2d49b0a0812a5515f38cabb81bcf65
          // Paper end
  
 diff --git a/src/main/java/net/minecraft/server/World.java b/src/main/java/net/minecraft/server/World.java
-index 508a3ed1ed041c21f5ec1fd18dfb01311e5310bf..de2e0e557aeb2a565fe4b55664660d2ff65c995b 100644
+index 561b42472261a973fea6344d76ca7ea1993aee27..30ddc2b21508bcdfa22eae4e12e0f08c0ab3e8cb 100644
 --- a/src/main/java/net/minecraft/server/World.java
 +++ b/src/main/java/net/minecraft/server/World.java
 @@ -88,6 +88,8 @@ public abstract class World implements GeneratorAccess, AutoCloseable {
@@ -374,7 +374,7 @@ index 508a3ed1ed041c21f5ec1fd18dfb01311e5310bf..de2e0e557aeb2a565fe4b55664660d2f
 +        this.ilbluConfig = new io.github.paul1365972.ilblu.IlbluWorldConfig(worlddata.getName(), this.paperConfig, this.spigotConfig); // Ilblu
          this.chunkPacketBlockController = this.paperConfig.antiXray ? new ChunkPacketBlockControllerAntiXray(this.paperConfig) : ChunkPacketBlockController.NO_OPERATION_INSTANCE; // Paper - Anti-Xray
          this.generator = gen;
-         this.world = new CraftWorld((WorldServer) this, gen, env);
+         dimensionmanager.world = (WorldServer) this; // Paper
 diff --git a/src/main/java/org/bukkit/craftbukkit/CraftServer.java b/src/main/java/org/bukkit/craftbukkit/CraftServer.java
 index 4371592fbffce969d731fd8171277abaf550e881..968017d89d39f29cdd935b7f35c6b5b772282218 100644
 --- a/src/main/java/org/bukkit/craftbukkit/CraftServer.java
@@ -419,7 +419,7 @@ index 4371592fbffce969d731fd8171277abaf550e881..968017d89d39f29cdd935b7f35c6b5b7
          public void restart() {
              org.spigotmc.RestartCommand.restart();
 diff --git a/src/main/java/org/bukkit/craftbukkit/Main.java b/src/main/java/org/bukkit/craftbukkit/Main.java
-index 93340e9470b23f2d8c91338e63e95c6465e69c3c..136a01eea4f40f3515feee5f7adf986cbb133981 100644
+index ffee0c5ddfe09b061fee4a31cdf208f6876fba58..ca162e85e9cd2a1adefa112b7d6803213fba59f0 100644
 --- a/src/main/java/org/bukkit/craftbukkit/Main.java
 +++ b/src/main/java/org/bukkit/craftbukkit/Main.java
 @@ -146,6 +146,14 @@ public class Main {
