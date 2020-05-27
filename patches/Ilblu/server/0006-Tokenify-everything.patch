@@ -190,7 +190,7 @@ index 968017d89d39f29cdd935b7f35c6b5b772282218..7a625191af2c827e52565441bbf87e66
              world.worldData.setDifficulty(config.difficulty);
              world.setSpawnFlags(config.spawnMonsters, config.spawnAnimals);
 diff --git a/src/main/java/org/bukkit/craftbukkit/Main.java b/src/main/java/org/bukkit/craftbukkit/Main.java
-index ca162e85e9cd2a1adefa112b7d6803213fba59f0..d06bc9aa352b1700819d3c7763c22e1d986448b5 100644
+index 71495749f81877e034001b709d3f1749a6687756..f14a5252bad3326db2c452c91270548b5f00c2f0 100644
 --- a/src/main/java/org/bukkit/craftbukkit/Main.java
 +++ b/src/main/java/org/bukkit/craftbukkit/Main.java
 @@ -148,10 +148,10 @@ public class Main {
