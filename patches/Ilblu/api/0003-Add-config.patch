@@ -4,20 +4,6 @@ Date: Thu, 9 Apr 2020 15:54:34 +0200
 Subject: [PATCH] Add config
 
 
-diff --git a/src/main/java/co/aikar/timings/TimingsExport.java b/src/main/java/co/aikar/timings/TimingsExport.java
-index 93d5a3f97a1b2b3a1cd2731d48e8ebd01d29aa91..e194cac603461ece3337a5c773106f94fe853e4e 100644
---- a/src/main/java/co/aikar/timings/TimingsExport.java
-+++ b/src/main/java/co/aikar/timings/TimingsExport.java
-@@ -206,7 +206,8 @@ class TimingsExport extends Thread {
-         parent.put("config", createObject(
-             pair("spigot", mapAsJSON(Bukkit.spigot().getSpigotConfig(), null)),
-             pair("bukkit", mapAsJSON(Bukkit.spigot().getBukkitConfig(), null)),
--            pair("paper", mapAsJSON(Bukkit.spigot().getPaperConfig(), null))
-+            pair("paper", mapAsJSON(Bukkit.spigot().getPaperConfig(), null)),
-+            pair("ilblu", mapAsJSON(Bukkit.spigot().getIlbluConfig(), null)) // Ilblu
-         ));
- 
-         new TimingsExport(listeners, parent, history).start();
 diff --git a/src/main/java/org/bukkit/Server.java b/src/main/java/org/bukkit/Server.java
 index cc06492f46ba5776221cd2614c1dcd8f33cc8faf..f7a6e13475c2048b801b7967c74e9d54b180aa7c 100644
 --- a/src/main/java/org/bukkit/Server.java
