@@ -52,10 +52,10 @@ index 49a38c6608b652ff48ef4eaca0dd3ccb1ba570e3..5c15e85875fe06fb50bfa90840899418
                  JsonObject json = new Gson().fromJson(reader, JsonObject.class);
                  int latest = json.get("build").getAsInt();
 diff --git a/src/main/java/net/minecraft/server/MinecraftServer.java b/src/main/java/net/minecraft/server/MinecraftServer.java
-index 395e5034ea72599628c58495e3937a5d63e6af66..cd79372c963705c3b2873b2b691b62b50ec74fe1 100644
+index b853d50a4a23de87a87d674cd7e01484d750c352..5a32338ffe6dc70b5d6d01609d4c053a7bc6b1c0 100644
 --- a/src/main/java/net/minecraft/server/MinecraftServer.java
 +++ b/src/main/java/net/minecraft/server/MinecraftServer.java
-@@ -1561,7 +1561,7 @@ public abstract class MinecraftServer extends IAsyncTaskHandlerReentrant<TickTas
+@@ -1569,7 +1569,7 @@ public abstract class MinecraftServer extends IAsyncTaskHandlerReentrant<TickTas
      }
  
      public String getServerModName() {

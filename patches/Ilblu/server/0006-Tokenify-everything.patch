@@ -155,10 +155,10 @@ index cd2d49b0a0812a5515f38cabb81bcf659187f3af..7c3f2ebe1b0486e1fcdcb9b586f09407
              DedicatedServer.LOGGER.error("Unable to load server configuration", e);
              return false;
 diff --git a/src/main/java/net/minecraft/server/MinecraftServer.java b/src/main/java/net/minecraft/server/MinecraftServer.java
-index cd79372c963705c3b2873b2b691b62b50ec74fe1..74980db23cde240cc9803da87e5bbe0c7343e905 100644
+index 5a32338ffe6dc70b5d6d01609d4c053a7bc6b1c0..35eb5ff03cd3d748224ff7c8e2a64df1e012dcfb 100644
 --- a/src/main/java/net/minecraft/server/MinecraftServer.java
 +++ b/src/main/java/net/minecraft/server/MinecraftServer.java
-@@ -1561,7 +1561,7 @@ public abstract class MinecraftServer extends IAsyncTaskHandlerReentrant<TickTas
+@@ -1569,7 +1569,7 @@ public abstract class MinecraftServer extends IAsyncTaskHandlerReentrant<TickTas
      }
  
      public String getServerModName() {
