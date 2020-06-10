@@ -355,7 +355,7 @@ index b07c49f1b48cc6dedd7c2057da0ec4f6f6d446e6..cd2d49b0a0812a5515f38cabb81bcf65
          // Paper end
  
 diff --git a/src/main/java/net/minecraft/server/World.java b/src/main/java/net/minecraft/server/World.java
-index 9de505d01fa30f31f2528265cb0d6af7ff59961f..a267e596e1ce79c981e5ad53df9873fc5695ba6a 100644
+index 032b7acee8c8af70c0283f5551ce2875607f6c98..46cdacb23b2399d238afdd473a8515c7acd48432 100644
 --- a/src/main/java/net/minecraft/server/World.java
 +++ b/src/main/java/net/minecraft/server/World.java
 @@ -88,6 +88,8 @@ public abstract class World implements GeneratorAccess, AutoCloseable {
@@ -368,15 +368,15 @@ index 9de505d01fa30f31f2528265cb0d6af7ff59961f..a267e596e1ce79c981e5ad53df9873fc
      public static BlockPosition lastPhysicsProblem; // Spigot
      private org.spigotmc.TickLimiter entityLimiter;
 @@ -136,6 +138,7 @@ public abstract class World implements GeneratorAccess, AutoCloseable {
-     protected World(WorldData worlddata, DimensionManager dimensionmanager, BiFunction<World, WorldProvider, IChunkProvider> bifunction, GameProfilerFiller gameprofilerfiller, boolean flag, org.bukkit.generator.ChunkGenerator gen, org.bukkit.World.Environment env) {
+     protected World(WorldData worlddata, DimensionManager dimensionmanager, java.util.concurrent.Executor executor, BiFunction<World, WorldProvider, IChunkProvider> bifunction, GameProfilerFiller gameprofilerfiller, boolean flag, org.bukkit.generator.ChunkGenerator gen, org.bukkit.World.Environment env) { // Paper - executor
          this.spigotConfig = new org.spigotmc.SpigotWorldConfig( worlddata.getName() ); // Spigot
          this.paperConfig = new com.destroystokyo.paper.PaperWorldConfig(worlddata.getName(), this.spigotConfig); // Paper
 +        this.ilbluConfig = new io.github.paul1365972.ilblu.IlbluWorldConfig(worlddata.getName(), this.paperConfig, this.spigotConfig); // Ilblu
-         this.chunkPacketBlockController = this.paperConfig.antiXray ? new ChunkPacketBlockControllerAntiXray(this.paperConfig) : ChunkPacketBlockController.NO_OPERATION_INSTANCE; // Paper - Anti-Xray
+         this.chunkPacketBlockController = this.paperConfig.antiXray ? new ChunkPacketBlockControllerAntiXray(this.paperConfig, executor) : ChunkPacketBlockController.NO_OPERATION_INSTANCE; // Paper - Anti-Xray
          this.generator = gen;
          if (dimensionmanager.world == null) dimensionmanager.world = (WorldServer) this; // Paper
 diff --git a/src/main/java/org/bukkit/craftbukkit/CraftServer.java b/src/main/java/org/bukkit/craftbukkit/CraftServer.java
-index 4371592fbffce969d731fd8171277abaf550e881..968017d89d39f29cdd935b7f35c6b5b772282218 100644
+index 517071f31f55ecd57d074627a3c2893f96b7c00f..d2e650709365a8ca674eee0c53524b2ae0d70258 100644
 --- a/src/main/java/org/bukkit/craftbukkit/CraftServer.java
 +++ b/src/main/java/org/bukkit/craftbukkit/CraftServer.java
 @@ -815,6 +815,7 @@ public final class CraftServer implements Server {

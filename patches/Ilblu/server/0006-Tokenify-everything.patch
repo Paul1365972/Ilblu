@@ -168,7 +168,7 @@ index e524337c1811704e7b839d03dfa283abd31756a0..9b9229f7bc9ea1d2679131a767fb68b5
  
      public CrashReport b(CrashReport crashreport) {
 diff --git a/src/main/java/org/bukkit/craftbukkit/CraftServer.java b/src/main/java/org/bukkit/craftbukkit/CraftServer.java
-index 968017d89d39f29cdd935b7f35c6b5b772282218..7a625191af2c827e52565441bbf87e66be5270ba 100644
+index d2e650709365a8ca674eee0c53524b2ae0d70258..ee6f5d602b5514da87c76fc1bc970b1d869c3e93 100644
 --- a/src/main/java/org/bukkit/craftbukkit/CraftServer.java
 +++ b/src/main/java/org/bukkit/craftbukkit/CraftServer.java
 @@ -205,7 +205,7 @@ import javax.annotation.Nullable; // Paper
